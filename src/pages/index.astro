@@ -38,6 +38,20 @@ const postsHaveSeries = sortedPosts.some((post) => post.data.series)
     )
   }
   {
+    sortedPosts.length > 0 && (
+      <section>
+        <BlockHeader>Latest Posts</BlockHeader>
+        {sortedPosts
+          .reverse()
+          .slice(0, Math.floor(siteConfig.pageSize / 2))
+          .map((post) => (
+            <PostPreview post={post} />
+          ))}
+        <Pagination nextLink="/posts" nextText="Archive" />
+      </section>
+    )
+  }
+  {
     postsHaveSeries && (
       <section>
         <BlockHeader>Series</BlockHeader>
@@ -50,20 +64,6 @@ const postsHaveSeries = sortedPosts.some((post) => post.data.series)
       <section>
         <BlockHeader>Tags</BlockHeader>
         <TagsSection posts={sortedPosts} />
-      </section>
-    )
-  }
-  {
-    sortedPosts.length > 0 && (
-      <section>
-        <BlockHeader>Latest Posts</BlockHeader>
-        {sortedPosts
-          .reverse()
-          .slice(0, Math.floor(siteConfig.pageSize / 2))
-          .map((post) => (
-            <PostPreview post={post} />
-          ))}
-        <Pagination nextLink="/posts" nextText="Archive" />
       </section>
     )
   }
