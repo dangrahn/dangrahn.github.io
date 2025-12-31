@@ -58,7 +58,7 @@ const products = await getCollection('products')
           .map((post) => (
             <PostPreview post={post} />
           ))}
-        <Pagination nextLink="/posts" nextText="Archive" />
+        <Pagination nextLink="/posts" nextText="Posts" />
       </section>
     )
   }
