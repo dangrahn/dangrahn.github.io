@@ -9,6 +9,7 @@ import HomeBanner from '~/components/HomeBanner.astro'
 import siteConfig from '~/site.config'
 import TagsSection from '~/components/TagsSection.astro'
 import SeriesSection from '~/components/SeriesSection.astro'
+import ProductsSection from '~/components/ProductsSection.astro'
 
 const home = await getCollection('home')
 let HomeContent
@@ -27,6 +28,8 @@ const postsHaveTags = sortedPosts.some(
 )
 
 const postsHaveSeries = sortedPosts.some((post) => post.data.series)
+
+const products = await getCollection('products')
 ---
 
 <Layout>
@@ -35,6 +38,14 @@ const postsHaveSeries = sortedPosts.some((post) => post.data.series)
       <HomeBanner avatarImage={homeAvatarImage} githubCalendar={homeGithubCalendar}>
         <HomeContent />
       </HomeBanner>
+    )
+  }
+  {
+    products.length > 0 && (
+      <section>
+        <BlockHeader>Products</BlockHeader>
+        <ProductsSection products={products} />
+      </section>
     )
   }
   {

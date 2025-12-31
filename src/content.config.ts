@@ -50,8 +50,25 @@ const addendumCollection = defineCollection({
     }),
 })
 
+const productsCollection = defineCollection({
+  loader: glob({ pattern: ['**/*.md', '**/*.mdx'], base: './src/content/products' }),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      url: z.string().url(),
+      description: z.string(),
+      logo: z
+        .object({
+          src: image(),
+          alt: z.string().optional(),
+        })
+        .optional(),
+    }),
+})
+
 export const collections = {
   posts: postsCollection,
   home: homeCollection,
   addendum: addendumCollection,
+  products: productsCollection,
 }
