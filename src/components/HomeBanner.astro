@@ -10,9 +10,9 @@ interface Props {
 const { avatarImage, githubCalendar } = Astro.props
 ---
 
-<div class="my-6 md:mx-2">
+<div class="mt-6 md:mx-2">
   <div
-    class="flex flex-col sm:flex-row items-center justify-around sm:gap-5 max-w-full mb-6"
+    class="flex flex-col sm:flex-row items-center justify-around sm:gap-5 max-w-full"
   >
     {
       avatarImage && (
@@ -28,7 +28,7 @@ const { avatarImage, githubCalendar } = Astro.props
       )
     }
     <div>
-      <div class:list={['m-4 max-w-full prose']}>
+      <div class:list={['m-4 max-w-full prose [&>*:last-child]:mb-0']}>
         <slot />
       </div>
     </div>
