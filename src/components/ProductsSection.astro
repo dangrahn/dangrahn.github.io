@@ -1,0 +1,57 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { Image } from 'astro:assets'
+
+interface Props {
+  products: CollectionEntry<'products'>[]
+}
+
+const { products } = Astro.props
+
+function isSvg(src: ImageMetadata): boolean {
+  return src.format === 'svg'
+}
+---
+
+<ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-5">
+  {
+    products.map((product) => (
+      <li>
+        <a
+          href={product.data.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-4 p-4 bg-accent/7 rounded-lg border-transparent hover:border-accent/20 border-1 transition-colors"
+        >
+          {product.data.logo && (
+            isSvg(product.data.logo.src) ? (
+              <img
+                src={product.data.logo.src.src}
+                alt={product.data.logo.alt || product.data.name}
+                width={48}
+                height={48}
+                class="rounded-lg shrink-0 w-12 h-12"
+              />
+            ) : (
+              <Image
+                src={product.data.logo.src}
+                alt={product.data.logo.alt || product.data.name}
+                width={48}
+                height={48}
+                class="rounded-lg shrink-0"
+              />
+            )
+          )}
+          <div class="min-w-0">
+            <h3 class="font-semibold text-foreground/90 truncate">
+              {product.data.name}
+            </h3>
+            <p class="text-sm text-foreground/60 line-clamp-2">
+              {product.data.description}
+            </p>
+          </div>
+        </a>
+      </li>
+    ))
+  }
+</ul>
