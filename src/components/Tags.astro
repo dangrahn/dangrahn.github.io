@@ -8,12 +8,12 @@ interface Props {
 const { tags } = Astro.props
 ---
 
-<div class="flex flex-wrap gap-3 text-sm">
+<div class="flex flex-wrap gap-2 text-xs">
   {
     tags.map((tag) => (
       <a
         href={tag.url}
-        class="py-1 px-3 bg-accent/1 hover:bg-accent/8 border-1 border-accent/20 text-accent/90 rounded-2xl transition-colors"
+        class="py-1 px-2 text-foreground/50 hover:text-foreground border border-foreground/10 hover:border-foreground/20 transition-all duration-150"
       >
         {tag.title}
       </a>

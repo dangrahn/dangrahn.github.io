@@ -12,17 +12,17 @@ interface Props {
 const { socialLinks } = Astro.props
 ---
 
-<div class="flex w-full max-w-md items-center justify-between">
+<div class="flex items-center gap-6">
   {
     socialLinks.github && (
       <a
         href={socialLinks.github}
         target="_blank"
         rel="noopener noreferrer"
-        class="social-link"
+        class="text-foreground/40 hover:text-foreground transition-colors duration-150"
       >
         <span class="sr-only">GitHub</span>
-        <IconGithub class="size-7" />
+        <IconGithub class="size-5" />
       </a>
     )
   }
@@ -32,10 +32,10 @@ const { socialLinks } = Astro.props
         href={socialLinks.twitter}
         target="_blank"
         rel="noopener noreferrer"
-        class="social-link"
+        class="text-foreground/40 hover:text-foreground transition-colors duration-150"
       >
         <span class="sr-only">Twitter</span>
-        <IconTwitter class="size-7" />
+        <IconTwitter class="size-5" />
       </a>
     )
   }
@@ -45,18 +45,21 @@ const { socialLinks } = Astro.props
         href={socialLinks.linkedin}
         target="_blank"
         rel="noopener noreferrer"
-        class="social-link"
+        class="text-foreground/40 hover:text-foreground transition-colors duration-150"
       >
         <span class="sr-only">LinkedIn</span>
-        <IconLinkedin class="size-7" />
+        <IconLinkedin class="size-5" />
       </a>
     )
   }
   {
     socialLinks.rss && (
-      <a href="/rss.xml" class="social-link">
+      <a
+        href="/rss.xml"
+        class="text-foreground/40 hover:text-foreground transition-colors duration-150"
+      >
         <span class="sr-only">RSS</span>
-        <IconRss class="size-7" />
+        <IconRss class="size-5" />
       </a>
     )
   }

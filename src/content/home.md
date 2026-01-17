@@ -4,4 +4,6 @@ avatarImage:
   alt: 'My avatar'
 ---
 
-Hi, I’m Daniel Grahn. Software Engineer & Indie Hacker from 🇸🇪 Building in public and sharing my journey.
+Hi, I’m Daniel Grahn.<br />
+Software Engineer & Indie Hacker from 🇸🇪<br />
+Building in public and sharing my journey.
