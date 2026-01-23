@@ -86,11 +86,9 @@ if (postData.tags && postData.tags.length > 0) {
       {tags && <Tags tags={tags} />}
     </header>
 
-    <div class="flex flex-col xl:gap-1 2xl:gap-18 xl:flex-row xl:items-start">
-      {postData.toc && headings.length > 0 && <TableOfContents headings={headings} />}
-      <div class="prose">
-        <PostContent />
-      </div>
+    {postData.toc && headings.length > 0 && <TableOfContents headings={headings} />}
+    <div class="prose">
+      <PostContent />
     </div>
   </article>
 
