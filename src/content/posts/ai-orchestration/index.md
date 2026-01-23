@@ -36,13 +36,13 @@ The insight: progress shouldn't live in the LLM's context window. It should live
 
 Combined with well defined tasks and automatic tests, you steer it right and make sure there's a tight feedback loop for the AI agents to correct themselves. Define your tasks upfront, give them to Ralph, then walk away. Ralph autonomously iterates until tasks are addressed and all tests pass, writing more tests where it sees fit along the way.
 
+![Orchestration diagram](./ai-orchestration-2.png)
+
 ## The Multi-Agent Orchestration Revolution
 
 Once autonomous loops proved viable, parallel workflows quickly followed. Multiple parallel agents working toward the same goal or tasks, autonomously coordinating and self-correcting with each other. This means scalable capacity / speed. Likely the next team you'll need to hire.
 
 This isn't incremental. It's a different way of building software.
-
-![Orchestration diagram](./ai-orchestration-2.png)
 
 ## The Speed of Change
 
