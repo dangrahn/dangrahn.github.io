@@ -6,7 +6,12 @@ tags:
   - validation
   - solopreneur
   - indie-hacking
+  
 ---
+
+![Orchestration diagram](./image.png)  
+
+> **TL;DR:** I've been exploring how AI could streamline the idea validation workflow for solo founders, and I'm launching a beta to test it out. If you're a solopreneur who's tired of guessing, you can try it at [validatefirst.ai](https://validatefirst.ai).
 
 AI has made it easier than ever to build a product. Agentic tools, code generation, no-code platforms. The barrier to shipping something has never been lower, and more people are becoming product builders because of it.
 
@@ -18,23 +23,25 @@ By validation I mean two things: product-market fit (does this solve a problem p
 
 And it's not just me. After months of following how other solopreneurs build and launch in public, I keep seeing the same thing, and it's getting worse as AI lowers the building barrier further: talented builders shipping products nobody asked for, skipping validation, and wondering why nobody signs up.
 
-It took four years of running a bootstrapped venture studio to really understand how important it is to test ideas with customers early. When you're evaluating multiple ideas with limited resources, you can't afford to build first and hope for the best.
+It took four years of running a bootstrapped venture studio to really understand how important it is to test ideas with customers early.
 
 ## Why I Had to Figure This Out Myself
 
-At my previous workplaces, I always had UX design colleagues who handled customer research. They ran the interviews, synthesized the insights, and handed me problems worth solving. I never had to build that muscle myself.
+At my previous workplaces, I always had UX design colleagues who handled customer research. They ran the interviews, synthesized the insights, and handed me problems worth solving.
 
-Going solo changed everything. No UX team. No co-founder to push back on my ideas. No product manager talking to customers. Just me. I could build anything, but I had no idea whether anyone would pay for it. That's the gap I had to close on my own.
+Going solo changed everything. No UX team. No co-founder to push back on my ideas. Just me. I could build anything, but I had no idea whether anyone would pay for it. That's the gap I had to close on my own.
 
 ## A Simple Validation Framework
 
-I wish someone had told me this years ago: **you can test most ideas without writing a single line of code.**
+I wish someone had told me this years ago:
+**you can test most ideas without writing a single line of code.**
 
 Over time, I boiled it down to four steps:
 
-**Step 1: Lean Canvas**
+**Step 1: Problem-Solution Fit**
 - Start with a one-page business canvas: map out your problem, solution, target customer, and unique value proposition
 - This forces you to articulate your assumptions before testing them. If you can't clearly describe the problem and who has it, you're not ready to validate anything
+- Think lean canvas, but leaner
 
 **Step 2: Deep Research**
 - Research the market: who are the competitors, what gaps exist, and how big is the opportunity?
