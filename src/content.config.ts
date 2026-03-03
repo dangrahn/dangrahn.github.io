@@ -66,9 +66,31 @@ const productsCollection = defineCollection({
     }),
 })
 
+const servicesCollection = defineCollection({
+  loader: glob({ pattern: ['**/*.md', '**/*.mdx'], base: './src/content/services' }),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      tagline: z.string(),
+      description: z.string(),
+      coverImage: z
+        .object({
+          src: image(),
+          alt: z.string(),
+        })
+        .optional(),
+      headline: z.string(),
+      subheadline: z.string().optional(),
+      ctaUrl: z.string(),
+      ctaText: z.string().default('Book a free intro call'),
+      order: z.number().default(0),
+    }),
+})
+
 export const collections = {
   posts: postsCollection,
   home: homeCollection,
   addendum: addendumCollection,
   products: productsCollection,
+  services: servicesCollection,
 }

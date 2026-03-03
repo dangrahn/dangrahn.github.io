@@ -10,6 +10,7 @@ import siteConfig from '~/site.config'
 import TagsSection from '~/components/TagsSection.astro'
 import SeriesSection from '~/components/SeriesSection.astro'
 import ProductsSection from '~/components/ProductsSection.astro'
+import ServicesSection from '~/components/ServicesSection.astro'
 
 const home = await getCollection('home')
 let HomeContent
@@ -30,6 +31,7 @@ const postsHaveTags = sortedPosts.some(
 const postsHaveSeries = sortedPosts.some((post) => post.data.series)
 
 const products = await getCollection('products')
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order)
 ---
 
 <Layout>
@@ -45,6 +47,14 @@ const products = await getCollection('products')
       <section>
         <BlockHeader>Products</BlockHeader>
         <ProductsSection products={products} />
+      </section>
+    )
+  }
+  {
+    services.length > 0 && (
+      <section id="services">
+        <BlockHeader>Services</BlockHeader>
+        <ServicesSection services={services} />
       </section>
     )
   }

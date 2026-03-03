@@ -1,0 +1,29 @@
+---
+import type { CollectionEntry } from 'astro:content'
+
+interface Props {
+  services: CollectionEntry<'services'>[]
+}
+
+const { services } = Astro.props
+---
+
+<ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-5">
+  {
+    services.map((service) => (
+      <li>
+        <a
+          href={`/services/${service.id}`}
+          class="flex items-center gap-4 p-4 bg-accent/7 rounded-lg border-transparent hover:border-accent/20 border-1 transition-colors"
+        >
+          <div class="min-w-0">
+            <h3 class="font-semibold text-foreground/90">
+              {service.data.name}
+            </h3>
+            <p class="text-xs text-foreground/50">{service.data.tagline}</p>
+          </div>
+        </a>
+      </li>
+    ))
+  }
+</ul>

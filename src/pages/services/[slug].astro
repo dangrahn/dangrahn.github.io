@@ -1,0 +1,38 @@
+---
+import type { GetStaticPaths } from 'astro'
+import Layout from '~/layouts/Layout.astro'
+import ServiceCTA from '~/components/ServiceCTA.astro'
+import { getCollection, render } from 'astro:content'
+
+export const getStaticPaths = (async () => {
+  const services = await getCollection('services')
+  return services.map((service) => ({
+    params: { slug: service.id },
+    props: { service },
+  }))
+}) satisfies GetStaticPaths
+
+const { service } = Astro.props
+const { Content } = await render(service)
+---
+
+<Layout title={service.data.name} description={service.data.description}>
+  <article class="max-w-full py-8">
+    <header class="mb-8">
+      <h1 class="text-xl font-medium text-foreground mb-2">
+        {service.data.headline}
+      </h1>
+      {
+        service.data.subheadline && (
+          <p class="text-sm text-foreground/60">{service.data.subheadline}</p>
+        )
+      }
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <ServiceCTA ctaUrl={service.data.ctaUrl} ctaText={service.data.ctaText} />
+  </article>
+</Layout>
