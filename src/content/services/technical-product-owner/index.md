@@ -15,10 +15,17 @@ Your product backlog is a graveyard of good intentions. Engineers are building f
 
 Traditional product owners speak business. Engineers speak code. Someone needs to speak both -- and make sure what gets built is what actually matters.
 
+You won't fix this with a product strategy workshop or an outside consultant who drops in for a week and hands you a roadmap. Product ownership is a daily practice -- it requires being close enough to hear the hallway conversations, catch the scope creep in real time, and push back before the sprint is lost.
+
 ## 02 How I Work
 
+I'm an independent contractor. No agency, no juniors, no handoffs. When you work with me, you get me.
+
+- **Quarterly retainer** -- a fixed block of hours, paid upfront. Use them or lose them, but that's the cap and the commitment.
+- **Limited slots** -- I take on a small number of clients at a time. This isn't a scaling business. It's a craft.
 - **Embedded in your team** -- standups, sprint planning, retros, stakeholder discussions
 - **Remote and async by default** -- I believe in teams trusted to create value from anywhere
+- **No lock-in** -- you can stop anytime, and everything I build stays yours
 
 ## 03 What You Get
 
@@ -32,10 +39,11 @@ I've spent my career moving between engineering and product. I've been the AI-na
 
 ## 05 Pricing
 
-- Cheaper than shipping the wrong feature
-- Cheaper than a quarter of sprints that miss the mark
-- Cheaper than the gap between what your users need and what your team builds
-- [Let's talk](https://www.linkedin.com/in/dangrahn/)
+Quarterly retainer, paid upfront, fixed block of hours.
+
+You're not buying hours. You're buying integration. Someone embedded in your team who understands the users, the backlog, the technical constraints, and the business goals -- not someone who writes a roadmap and walks away.
+
+The best product advice doesn't come from a strategy offsite. It comes from being embedded -- hearing the standup where scope creeps, catching the ticket that contradicts the strategy, and being there when the tradeoff conversation actually happens. One-off consulting has a whiff of "if we only had *that framework*, then..." Real product clarity comes from deeper shared experience over time.
 
 ## 06 Fit Check
 
