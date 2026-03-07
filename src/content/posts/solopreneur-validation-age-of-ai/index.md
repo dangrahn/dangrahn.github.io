@@ -1,7 +1,7 @@
 ---
 title: In the Age of AI, More People Build Products Nobody Wants.
 description: As agentic AI turns more people into product builders, the oldest solopreneur mistake is getting more common, not less.
-published: 2026-03-02
+published: 2026-03-09
 tags:
   - validation
   - solopreneur
