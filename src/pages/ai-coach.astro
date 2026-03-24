@@ -1,0 +1,108 @@
+---
+import { Image } from 'astro:assets'
+import Layout from '~/layouts/Layout.astro'
+import PurchaseForm from '~/components/PurchaseForm.astro'
+import avatarImage from '~/content/avatar.jpg'
+
+const checkoutUrl = 'https://STORE.lemonsqueezy.com/checkout/buy/PRODUCT_ID'
+---
+
+<Layout title="AI Coach Session" description="Half-day hands-on AI coaching for individuals and teams. Pre-questionnaire, 4-hour online session, and follow-up report. 9,900 SEK per seat.">
+  <article class="max-w-full py-8">
+    <header class="mb-12">
+      <h1 class="text-xl font-medium text-foreground mb-2">
+        AI Coach Session (Half-day, online)
+      </h1>
+      <div class="my-6 p-5 bg-accent/7 rounded-lg border border-accent/10">
+        <p class="text-base text-foreground/90 font-medium">
+          Half-day online coaching that takes you from surface-level AI usage to real workflow integration.
+        </p>
+      </div>
+    </header>
+
+    <!-- The gap -->
+    <section class="mb-12">
+      <p class="text-sm text-foreground/80">
+        You're using ChatGPT for emails and brainstorming. But you know there's a gap between that and having AI actually embedded in how you work - workflow automation, advanced analysis, reasoning over complex data. This session gives you clarity.
+      </p>
+    </section>
+
+    <!-- How it works -->
+    <section class="mb-12">
+      <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-6">How it works</h2>
+      <div class="space-y-6">
+        <div class="flex gap-4">
+          <span class="text-foreground/30 text-sm font-medium shrink-0">01</span>
+          <div>
+            <p class="text-sm font-medium text-foreground/90">Pre-questionnaire</p>
+            <p class="text-sm text-foreground/60">You fill out a detailed questionnaire about your workflow, tools, processes, and data. I use this to build a session tailored to your actual work.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="text-foreground/30 text-sm font-medium shrink-0">02</span>
+          <div>
+            <p class="text-sm font-medium text-foreground/90">Half-day online session</p>
+            <p class="text-sm text-foreground/60">4 hours working through your workflow in depth - understanding how you work today and mapping where the latest AI tools and techniques could make a real difference.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="text-foreground/30 text-sm font-medium shrink-0">03</span>
+          <div>
+            <p class="text-sm font-medium text-foreground/90">Follow-up report</p>
+            <p class="text-sm text-foreground/60">A written playbook covering everything from the session: AI opportunities mapped to your workflow, recommended tools, and concrete next steps.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What you'll walk away with -->
+    <section class="mb-12">
+      <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-6">What you'll walk away with</h2>
+      <ul class="space-y-2 text-sm">
+        <li class="text-foreground/80"><span class="text-foreground/30 mr-2">-</span>Clarity on where AI fits in your specific workflow</li>
+        <li class="text-foreground/80"><span class="text-foreground/30 mr-2">-</span>Repetitive work identified and matched with suggested tailored AI agents</li>
+        <li class="text-foreground/80"><span class="text-foreground/30 mr-2">-</span>Security and data privacy assessment with suitable approaches for your context</li>
+        <li class="text-foreground/80"><span class="text-foreground/30 mr-2">-</span>A concrete plan for integrating AI into your day-to-day</li>
+      </ul>
+    </section>
+
+    <!-- Who it's for -->
+    <section class="mb-12">
+      <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-6">Who it's for</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="p-4 bg-accent/7 rounded-lg border border-accent/10">
+          <p class="text-sm font-medium text-foreground/90 mb-2">Individuals</p>
+          <p class="text-sm text-foreground/60">Professionals who need AI to do more than rewrite emails. One session gives you the foundation to work differently.</p>
+        </div>
+        <div class="p-4 bg-accent/7 rounded-lg border border-accent/10">
+          <p class="text-sm font-medium text-foreground/90 mb-2">Teams</p>
+          <p class="text-sm text-foreground/60">Team leads driving AI adoption. Buy seats for your team and I'll tailor the session to your shared workflow and challenges.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing + Purchase -->
+    <section class="mb-12">
+      <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-6">Pricing</h2>
+      <p class="text-sm text-foreground/80 mb-2">
+        <span class="font-medium text-foreground/90">9,900 SEK per seat.</span> Questionnaire, half-day session, and report included.      </p>
+      <PurchaseForm checkoutUrl={checkoutUrl} />
+    </section>
+
+    <!-- About -->
+    <section class="mb-8">
+      <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-6">Your coach</h2>
+      <div class="flex items-start gap-4">
+        <Image
+          src={avatarImage}
+          alt="Daniel Grahn"
+          class="rounded-full border border-foreground/10 size-16 aspect-square shrink-0"
+          width={64}
+          height={64}
+        />
+        <p class="text-sm text-foreground/80">
+        I'm Daniel Grahn - software engineer, product owner, and AI-native practitioner. I use AI in my work every day, not as a gimmick but as core infrastructure. I've helped teams go from "we should use AI" to actually shipping AI-powered workflow.        </p>
+      </div>
+    </section>
+  </article>
+</Layout>
