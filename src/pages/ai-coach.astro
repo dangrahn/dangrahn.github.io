@@ -104,20 +104,25 @@ const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbzpTiA0UIpMDHcMy3
       <BookingForm appsScriptUrl={appsScriptUrl} />
     </section>
 
-    <!-- About -->
+    <div class="flex justify-center mb-8">
+      <Image
+        src={avatarImage}
+        alt="Daniel Grahn"
+        class="rounded-full border border-foreground/10 size-20 aspect-square"
+        width={160}
+        height={160}
+      />
+    </div>
+
+    <!-- Why -->
     <section class="mb-8">
-      <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-6">Your coach</h2>
-      <div class="flex items-start gap-4">
-        <Image
-          src={avatarImage}
-          alt="Daniel Grahn"
-          class="rounded-full border border-foreground/10 size-16 aspect-square shrink-0"
-          width={64}
-          height={64}
-        />
-        <p class="text-sm text-foreground/80">
-        I'm Daniel Grahn - software engineer, product owner, and AI-native practitioner. I use AI in my work every day, not as a gimmick but as core infrastructure. I've helped teams go from "we should use AI" to actually shipping AI-powered workflow.        </p>
-      </div>
+      <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-6">Why I'm uniquely positioned to help you</h2>
+      <p class="text-sm text-foreground/80">
+        The recent breakthroughs in AI are going to transform most knowledge work — not in some distant future, but right now. I've seen firsthand how much time and energy people can reclaim once AI is properly integrated into their workflow. I want to help speed that up. The sooner people build real competence with these tools, the sooner they benefit — and that's what drives me to do this work.
+      </p>
+      <p class="text-sm text-foreground/80 mt-3">
+        My background in software engineering, AI development, product ownership, UX, and stakeholder management means I don't just understand the technology — I understand how it needs to fit into real teams, real processes, and real business constraints. That combination is what makes this coaching practical, not theoretical.
+      </p>
     </section>
   </article>
 </Layout>
