@@ -12,7 +12,7 @@ Here's how it's going.
 
 ## The Setup
 
-I'm building [ValidateFirst.ai](https://validatefirst.ai) as a solo founder. That means I'm the developer, the marketer, the support person, and the CEO. The usual indie hacker juggle.
+I'm building [ValidateFirst.ai](https://validatefirst.ai) as a solo founder. That means I'm the developer, the marketer, the support person, and the CEO. The usual solo founder juggle.
 
 My bottleneck wasn't ideas or motivation — it was execution bandwidth. There's only so many hours in the day, and context-switching between code and content was killing my momentum.
 
@@ -52,7 +52,7 @@ Recent examples:
 - **Blog post drafts**: I describe what I want to write about, Zoe drafts it, opens a PR in my content repo. I review, suggest edits, she iterates.
 - **Twitter threads**: She turns blog posts into thread format with posting notes.
 - **Content calendar**: She maintains a Google Calendar with our launch content schedule, linked to Trello cards for each post.
-- **Tactical suggestions**: "Here's what's working on Indie Hackers this week" or "This conversation on X is relevant to ValidateFirst."
+- **Tactical suggestions**: "This conversation on X is relevant to ValidateFirst" or "Here's a trending topic you could write about."
 
 The key is that Zoe doesn't just generate text — she operates within my systems. The drafts go into GitHub PRs. The calendar syncs with my workflow. Everything is reviewable and trackable.
 
