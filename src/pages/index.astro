@@ -46,28 +46,14 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
     services.length > 0 && (
       <section id="consultancy">
         <BlockHeader>Consultancy</BlockHeader>
-        <ServicesSection services={services} />
+        <ServicesSection services={services} extraItem={{
+          href: '/ai-coach',
+          name: 'AI Competence Development (online)',
+          tagline: 'Hands-on AI competence development workshop',
+        }} />
       </section>
     )
   }
-  <section>
-    <BlockHeader>AI Competence Development</BlockHeader>
-    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-5">
-      <li>
-        <a
-          href="/ai-coach"
-          class="flex items-center gap-4 p-4 bg-accent/7 rounded-lg border-transparent hover:border-accent/20 border-1 transition-colors"
-        >
-          <div class="min-w-0">
-            <h3 class="font-semibold text-foreground/90">AI Competence Development Session</h3>
-            <p class="text-xs text-foreground/50">
-              Half-day hands-on AI competence development – 9,900 SEK / seat
-            </p>
-          </div>
-        </a>
-      </li>
-    </ul>
-  </section>
   {
     products.length > 0 && (
       <section>

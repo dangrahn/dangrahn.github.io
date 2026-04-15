@@ -12,7 +12,7 @@ export const translations = {
     ],
     title: 'AI Competence Development',
     description:
-      'Practical AI upskilling for professionals and teams. Identify your highest-yield AI use cases, get hands-on experience, and walk away with a concrete plan for integrating AI into your daily workflow. 9,900 SEK per session.',
+      'Practical AI upskilling for professionals and teams. Identify your highest-yield AI use cases, get hands-on experience, and walk away with a concrete plan for integrating AI into your daily workflow. 920 EUR per session.',
     heading: 'AI Competence Development (online)',
     subtitle:
       'Practical upskilling that takes you from surface-level AI usage to real workflow integration — with hands-on experience and a concrete plan to keep building on.',
@@ -49,7 +49,7 @@ export const translations = {
     ],
     resultCaseHighlight: '15–25 hours/week in potential time savings',
     bookHeading: 'Book your session',
-    bookPrice: '9,900 SEK per session (excl. VAT).',
+    bookPrice: '920 EUR per session (excl. VAT).',
     bookIncludes: 'Pre-interview questionnaire, session, and report included.',
     whyHeading: "Why I'm uniquely positioned to help you",
     whyParagraph1:
@@ -162,7 +162,7 @@ export const translations = {
       confirmPhoneLabel: 'Phone',
       confirmLinkedinLabel: 'LinkedIn',
       confirmGoalsLabel: 'Session goals',
-      confirmButton: 'Confirm booking (9,900 SEK excl. VAT)',
+      confirmButton: 'Confirm booking (920 EUR excl. VAT)',
       backButton: '\u2190 Back',
       bookingConfirmed: 'Booking confirmed!',
       calendarInviteSent: 'A calendar invite has been sent to',

@@ -3,9 +3,10 @@ import type { CollectionEntry } from 'astro:content'
 
 interface Props {
   services: CollectionEntry<'services'>[]
+  extraItem?: { href: string; name: string; tagline: string }
 }
 
-const { services } = Astro.props
+const { services, extraItem } = Astro.props
 ---
 
 <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-5">
@@ -14,7 +15,7 @@ const { services } = Astro.props
       <li>
         <a
           href={`/services/${service.id}`}
-          class="flex items-center gap-4 p-4 bg-accent/7 rounded-lg border-transparent hover:border-accent/20 border-1 transition-colors"
+          class="flex items-start gap-4 p-4 h-full bg-accent/7 rounded-lg border-transparent hover:border-accent/20 border-1 transition-colors"
         >
           <div class="min-w-0">
             <h3 class="font-semibold text-foreground/90">
@@ -26,4 +27,17 @@ const { services } = Astro.props
       </li>
     ))
   }
+  {extraItem && (
+    <li>
+      <a
+        href={extraItem.href}
+        class="flex items-start gap-4 p-4 h-full bg-accent/7 rounded-lg border-transparent hover:border-accent/20 border-1 transition-colors"
+      >
+        <div class="min-w-0">
+          <h3 class="font-semibold text-foreground/90">{extraItem.name}</h3>
+          <p class="text-xs text-foreground/50">{extraItem.tagline}</p>
+        </div>
+      </a>
+    </li>
+  )}
 </ul>
