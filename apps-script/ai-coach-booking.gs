@@ -1,3 +1,7 @@
+// Google Apps Script backend for the AI Coach booking page on danielgrahn.com.
+// Deployed as a web app, it exposes availability from the primary Google Calendar
+// and creates coaching session bookings with email notifications.
+
 const TIMEZONE = 'Europe/Stockholm'
 const SLOTS = [
   { time: '09:00', hours: 9, minutes: 0, duration: 3 },
