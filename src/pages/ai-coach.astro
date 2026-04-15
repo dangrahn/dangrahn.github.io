@@ -14,21 +14,20 @@ const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbzpTiA0UIpMDHcMy3
       <h1 class="text-xl font-medium text-foreground mb-2">
         AI Coach Session (online)
       </h1>
-      <div class="my-6 p-5 bg-accent/7 rounded-lg border border-accent/10">
-        <p class="text-base text-foreground/90 font-medium">
-          Online coaching that takes you from surface-level AI usage to real workflow integration.
-        </p>
-      </div>
+      <p class="my-6 text-base text-foreground/90 font-medium">
+        Online coaching that takes you from surface-level AI usage to real workflow integration.
+      </p>
     </header>
 
     <AiAssessmentWidget appsScriptUrl={appsScriptUrl} />
 
     <!-- The gap -->
-    <section class="mb-12">
+    <div class="sticky top-0 z-10 bg-background py-4 mb-8">
+      <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-3">AI Coaching Session</h2>
       <p class="text-sm text-foreground/80">
-        You're using ChatGPT for emails and brainstorming. But you know there's a gap between that and having AI actually embedded in how you work - workflow automation, advanced analysis, reasoning over complex data. This session gives you clarity.
+        Knowing where AI fits is the first step. The real value comes from integrating it into how you actually work — your workflows, your tools, your data. That's what this coaching session delivers.
       </p>
-    </section>
+    </div>
 
     <!-- How it works -->
     <section class="mb-12">
@@ -67,21 +66,6 @@ const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbzpTiA0UIpMDHcMy3
         <li class="text-foreground/80"><span class="text-foreground/30 mr-2">-</span>Security and data privacy assessment with suitable approaches for your context</li>
         <li class="text-foreground/80"><span class="text-foreground/30 mr-2">-</span>A concrete plan for integrating AI into your day-to-day</li>
       </ul>
-    </section>
-
-    <!-- Who it's for -->
-    <section class="mb-12">
-      <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-6">Who it's for</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="p-4 bg-accent/7 rounded-lg border border-accent/10">
-          <p class="text-sm font-medium text-foreground/90 mb-2">Individuals</p>
-          <p class="text-sm text-foreground/60">Professionals who need AI to do more than rewrite emails. One session gives you the foundation to work differently.</p>
-        </div>
-        <div class="p-4 bg-accent/7 rounded-lg border border-accent/10">
-          <p class="text-sm font-medium text-foreground/90 mb-2">Teams</p>
-          <p class="text-sm text-foreground/60">Team leads driving AI adoption. Book a session for your team and I'll tailor it to your shared workflow and challenges.</p>
-        </div>
-      </div>
     </section>
 
     <!-- Pricing + Purchase -->
