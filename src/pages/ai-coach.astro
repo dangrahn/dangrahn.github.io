@@ -10,13 +10,22 @@ const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbzpTiA0UIpMDHcMy3
 
 <Layout title="AI Coach Session" description="Hands-on AI coaching for individuals and teams. Pre-interview questionnaire, online session, and follow-up report. 9,900 SEK per session.">
   <article class="max-w-full py-8">
-    <header class="mb-12">
+    <header class="mb-6">
       <h1 class="text-xl font-medium text-foreground mb-2">
         AI Coach Session (online)
       </h1>
-      <p class="my-6 text-base text-foreground/90 font-medium">
+      <p class="mt-6 mb-4 text-base text-foreground/90 font-medium">
         Online coaching that takes you from surface-level AI usage to real workflow integration.
       </p>
+      <div class="flex justify-center mb-2">
+        <Image
+          src={avatarImage}
+          alt="Daniel Grahn"
+          class="rounded-full border border-foreground/10 size-20 aspect-square"
+          width={160}
+          height={160}
+        />
+      </div>
     </header>
 
     <AiAssessmentWidget appsScriptUrl={appsScriptUrl} />
