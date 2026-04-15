@@ -43,10 +43,10 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
     )
   }
   {
-    products.length > 0 && (
-      <section>
-        <BlockHeader>Products</BlockHeader>
-        <ProductsSection products={products} />
+    services.length > 0 && (
+      <section id="consultancy">
+        <BlockHeader>Consultancy</BlockHeader>
+        <ServicesSection services={services} />
       </section>
     )
   }
@@ -69,10 +69,10 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
     </ul>
   </section>
   {
-    services.length > 0 && (
-      <section id="consultancy">
-        <BlockHeader>Consultancy</BlockHeader>
-        <ServicesSection services={services} />
+    products.length > 0 && (
+      <section>
+        <BlockHeader>Products</BlockHeader>
+        <ProductsSection products={products} />
       </section>
     )
   }
