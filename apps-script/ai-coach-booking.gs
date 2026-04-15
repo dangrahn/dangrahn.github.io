@@ -3,6 +3,7 @@
 // and creates coaching session bookings with email notifications.
 
 const TIMEZONE = 'Europe/Stockholm'
+const BUSY_CALENDARS = ['dangrahn@gmail.com']
 const SLOTS = [
   { time: '09:00', hours: 9, minutes: 0, duration: 3 },
   { time: '13:00', hours: 13, minutes: 0, duration: 3 },
@@ -24,7 +25,6 @@ function handleAvailability(e) {
 function buildMonthSlots(year, mon) {
   const firstDay = new Date(year, mon - 1, 1)
   const lastDay = new Date(year, mon, 0)
-  const calendar = CalendarApp.getDefaultCalendar()
   const earliest = getEarliestBookableDate()
   const latest = getLatestBookableDate()
 
@@ -41,7 +41,7 @@ function buildMonthSlots(year, mon) {
       }
       const { start, end } = slotTimeRange(d, slot)
       const isBookable = start >= earliest && start <= latest
-      const available = isBookable && calendar.getEvents(start, end).length === 0
+      const available = isBookable && !isSlotBusy(start, end)
       slots.push({ date: dateStr, time: slot.time, available })
     }
   }
@@ -101,8 +101,7 @@ function createBooking(slotStart, slotEnd, body) {
   }
 
   try {
-    var calendar = CalendarApp.getDefaultCalendar()
-    if (calendar.getEvents(slotStart, slotEnd).length > 0) {
+    if (isSlotBusy(slotStart, slotEnd)) {
       return jsonResponse({ error: 'slot_taken', message: 'This slot was just booked. Please select another.' })
     }
 
@@ -125,7 +124,7 @@ function createBooking(slotStart, slotEnd, body) {
       'Booked via danielgrahn.com on ' + formatDate(new Date()),
     ].join('\n')
 
-    var event = calendar.createEvent('AI Coach Session', slotStart, slotEnd, {
+    var event = CalendarApp.getDefaultCalendar().createEvent('AI Coach Session', slotStart, slotEnd, {
       description: description,
     })
     event.setVisibility(CalendarApp.Visibility.PRIVATE)
@@ -160,6 +159,21 @@ function notifyOwner(body, slotStart, slotEnd) {
   ].join('\n')
 
   MailApp.sendEmail('dangrahn@gmail.com', subject, emailBody)
+}
+
+function isSlotBusy(start, end) {
+  var calendars = [CalendarApp.getDefaultCalendar()]
+  for (var i = 0; i < BUSY_CALENDARS.length; i++) {
+    var cal = CalendarApp.getCalendarById(BUSY_CALENDARS[i])
+    if (cal) calendars.push(cal)
+  }
+  for (var c = 0; c < calendars.length; c++) {
+    var events = calendars[c].getEvents(start, end)
+    for (var e = 0; e < events.length; e++) {
+      if (events[e].getTransparency() === CalendarApp.EventTransparency.OPAQUE) return true
+    }
+  }
+  return false
 }
 
 function slotTimeRange(date, slot) {
