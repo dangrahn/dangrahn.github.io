@@ -10,7 +10,7 @@ const SLOTS = [
 const MIN_LEAD_DAYS = 5
 const MAX_WEEKS_AHEAD = 6
 
-function doGet(e) {
+function handleAvailability(e) {
   const month = (e && e.parameter && e.parameter.month) || ''
   if (!/^\d{4}-\d{2}$/.test(month)) {
     return jsonResponse({ error: 'invalid_input', message: 'Parameter "month" must be YYYY-MM format.' })
@@ -48,14 +48,7 @@ function buildMonthSlots(year, mon) {
   return slots
 }
 
-function doPost(e) {
-  let body
-  try {
-    body = JSON.parse(e.postData.contents)
-  } catch (_) {
-    return jsonResponse({ error: 'invalid_input', message: 'Request body must be valid JSON.' })
-  }
-
+function handleBooking(body) {
   const validationError = validateBookingInput(body)
   if (validationError) return jsonResponse(validationError)
 

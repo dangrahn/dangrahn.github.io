@@ -1,0 +1,433 @@
+---
+interface Props {
+  appsScriptUrl: string
+}
+
+const { appsScriptUrl } = Astro.props
+---
+
+<aside id="assessment" class="my-8 px-4 py-8 sm:px-8 bg-accent/7 rounded-lg border border-accent/10">
+  <div class="mx-auto">
+
+    <!-- Step 0: Entry -->
+    <div id="assess-step-start" class="text-center py-4">
+      <p class="text-sm text-foreground/70 mb-4">
+        Find out where AI can make the biggest difference in your workflow.
+      </p>
+      <button id="assess-start-btn" type="button" class="inline-block px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium">
+        Check how AI could elevate you
+      </button>
+      <p class="text-foreground/30 text-xs mt-3">Takes under 2 minutes</p>
+    </div>
+
+    <!-- Progress bar -->
+    <div id="assess-progress" class="flex gap-1 mb-6 hidden">
+      <div id="assess-prog-1" class="h-1 flex-1 rounded-full bg-accent/10"></div>
+      <div id="assess-prog-2" class="h-1 flex-1 rounded-full bg-accent/10"></div>
+      <div id="assess-prog-3" class="h-1 flex-1 rounded-full bg-accent/10"></div>
+      <div id="assess-prog-4" class="h-1 flex-1 rounded-full bg-accent/10"></div>
+      <div id="assess-prog-5" class="h-1 flex-1 rounded-full bg-accent/10"></div>
+    </div>
+
+    <!-- Step 1: About you -->
+    <div id="assess-step-1" class="hidden">
+      <p class="text-sm text-foreground/90 font-medium mb-4">Tell us about yourself</p>
+      <label class="block text-foreground/60 text-xs mb-1" for="assess-name">Name</label>
+      <input
+        id="assess-name"
+        type="text"
+        required
+        placeholder="Your name"
+        class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-3"
+      />
+      <label class="block text-foreground/60 text-xs mb-1" for="assess-jobtitle">Job title</label>
+      <input
+        id="assess-jobtitle"
+        type="text"
+        required
+        placeholder="e.g. Head of Product, CTO, Marketing Manager"
+        class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-3"
+      />
+      <label class="block text-foreground/60 text-xs mb-1" for="assess-company">Company</label>
+      <input
+        id="assess-company"
+        type="text"
+        required
+        placeholder="Company name"
+        class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-3"
+      />
+      <label class="block text-foreground/60 text-xs mb-1" for="assess-email">Email</label>
+      <input
+        id="assess-email"
+        type="email"
+        required
+        placeholder="you@company.com"
+        class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-3"
+      />
+      <div id="assess-linkedin-error" class="text-red-400 text-sm mb-3 hidden"></div>
+      <button id="assess-linkedin-btn" type="button" class="w-full px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium">
+        Continue
+      </button>
+    </div>
+
+    <!-- Step 2: Role -->
+    <div id="assess-step-2" class="hidden">
+      <p class="text-sm text-foreground/90 font-medium mb-1">Which best describes your day-to-day?</p>
+      <p class="text-sm text-foreground/40 mb-4">Select all that apply</p>
+      <div class="space-y-2" id="assess-q-role">
+        <button type="button" data-value="strategy" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Strategy &amp; decision-making</button>
+        <button type="button" data-value="content" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Creating content, documents, or presentations</button>
+        <button type="button" data-value="data" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Analyzing data, reports, or research</button>
+        <button type="button" data-value="coordination" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Coordinating people, projects, or processes</button>
+        <button type="button" data-value="building" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Building or designing products</button>
+      </div>
+      <div class="mt-2">
+        <input id="assess-other-role" type="text" placeholder="Other..." class="w-full px-4 py-3 bg-background border border-accent/15 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40" />
+      </div>
+      <div id="assess-err-2" class="text-red-400 text-sm mt-3 hidden"></div>
+      <button type="button" data-step="2" class="assess-continue w-full px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium mt-4">Continue</button>
+      <button type="button" data-step="2" class="assess-back w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors mt-2">&larr; Back</button>
+    </div>
+
+    <!-- Step 3: Time drain -->
+    <div id="assess-step-3" class="hidden">
+      <p class="text-sm text-foreground/90 font-medium mb-1">Where does most of your repetitive time go?</p>
+      <p class="text-sm text-foreground/40 mb-4">Select all that apply</p>
+      <div class="space-y-2" id="assess-q-timeDrain">
+        <button type="button" data-value="communication" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Emails, messages, and status updates</button>
+        <button type="button" data-value="meetings" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Meetings, notes, and follow-ups</button>
+        <button type="button" data-value="research" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Searching for info or compiling reports</button>
+        <button type="button" data-value="reviewing" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Reviewing, editing, or formatting documents</button>
+        <button type="button" data-value="dataEntry" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Manual data entry or moving data between tools</button>
+      </div>
+      <div class="mt-2">
+        <input id="assess-other-timeDrain" type="text" placeholder="Other..." class="w-full px-4 py-3 bg-background border border-accent/15 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40" />
+      </div>
+      <div id="assess-err-3" class="text-red-400 text-sm mt-3 hidden"></div>
+      <button type="button" data-step="3" class="assess-continue w-full px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium mt-4">Continue</button>
+      <button type="button" data-step="3" class="assess-back w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors mt-2">&larr; Back</button>
+    </div>
+
+    <!-- Step 4: Current AI usage (single choice) -->
+    <div id="assess-step-4" class="hidden">
+      <p class="text-sm text-foreground/90 font-medium mb-4">How are you using AI today?</p>
+      <div class="space-y-2" id="assess-q-aiUsage">
+        <button type="button" data-value="none" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Haven't really started yet</button>
+        <button type="button" data-value="occasional" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Occasional ChatGPT for writing or brainstorming</button>
+        <button type="button" data-value="regular" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Regular use of one AI tool for specific tasks</button>
+        <button type="button" data-value="multiple" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Multiple AI tools in my workflow</button>
+        <button type="button" data-value="advanced" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Building custom automations or AI agents</button>
+      </div>
+      <div id="assess-err-4" class="text-red-400 text-sm mt-3 hidden"></div>
+      <button type="button" data-step="4" class="assess-continue w-full px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium mt-4">Continue</button>
+      <button type="button" data-step="4" class="assess-back w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors mt-2">&larr; Back</button>
+    </div>
+
+    <!-- Step 5: Blocker -->
+    <div id="assess-step-5" class="hidden">
+      <p class="text-sm text-foreground/90 font-medium mb-1">What's holding you back from doing more with AI?</p>
+      <p class="text-sm text-foreground/40 mb-4">Select all that apply</p>
+      <div class="space-y-2" id="assess-q-blocker">
+        <button type="button" data-value="unsure" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Not sure where to start or what's possible</button>
+        <button type="button" data-value="privacy" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Data privacy or security concerns</button>
+        <button type="button" data-value="time" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Hard to find time to learn and experiment</button>
+        <button type="button" data-value="tools" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">The tools I've tried didn't stick</button>
+        <button type="button" data-value="organization" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">My organization hasn't adopted AI yet</button>
+      </div>
+      <div class="mt-2">
+        <input id="assess-other-blocker" type="text" placeholder="Other..." class="w-full px-4 py-3 bg-background border border-accent/15 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40" />
+      </div>
+      <div id="assess-err-5" class="text-red-400 text-sm mt-3 hidden"></div>
+      <button type="button" data-step="5" class="assess-continue w-full px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium mt-4">Continue</button>
+      <button type="button" data-step="5" class="assess-back w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors mt-2">&larr; Back</button>
+    </div>
+
+    <!-- Loading -->
+    <div id="assess-step-loading" class="hidden text-center py-8">
+      <div class="flex items-center justify-center gap-2 text-foreground/40 text-sm mb-2">
+        <svg class="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+        </svg>
+        <span>Analyzing your profile...</span>
+      </div>
+      <p class="text-foreground/30 text-xs">This may take a few seconds</p>
+    </div>
+
+    <!-- Results -->
+    <div id="assess-step-results" class="hidden">
+      <div class="text-center mb-6">
+        <p class="text-xs uppercase tracking-wider text-foreground/50">Your AI Readiness</p>
+        <p id="assess-result-label" class="text-lg font-medium text-foreground/90 mt-1"></p>
+      </div>
+
+      <div class="mb-6">
+        <p class="text-xs uppercase tracking-wider text-foreground/50 mb-3">Likely opportunities</p>
+        <div id="assess-result-opportunities" class="space-y-2"></div>
+      </div>
+
+      <div class="p-5 bg-accent/7 rounded-lg border border-accent/10 text-center">
+        <p class="text-sm text-foreground/80 mb-1">Ready to turn these insights into action?</p>
+        <p id="assess-result-nextstep" class="text-sm text-foreground/60 mb-4"></p>
+        <a href="#booking" class="inline-block px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium">
+          Book your AI coaching session
+        </a>
+      </div>
+
+      <button type="button" id="assess-restart" class="w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors mt-4">
+        Take assessment again
+      </button>
+    </div>
+
+    <!-- Error -->
+    <div id="assess-error" class="hidden text-center py-4">
+      <p id="assess-error-text" class="text-red-400 text-sm mb-2"></p>
+      <button id="assess-retry-btn" type="button" class="text-foreground/60 text-xs underline hover:text-foreground/80">Retry</button>
+    </div>
+
+  </div>
+</aside>
+
+<script define:vars={{ appsScriptUrl }}>
+  const $ = (id) => document.getElementById(id)
+
+  const answers = {}
+  const selections = { role: new Set(), timeDrain: new Set(), aiUsage: new Set(), blocker: new Set() }
+
+  const STEPS = ['assess-step-start', 'assess-step-1', 'assess-step-2', 'assess-step-3', 'assess-step-4', 'assess-step-5', 'assess-step-loading', 'assess-step-results', 'assess-error']
+  const QUESTION_KEYS = ['role', 'timeDrain', 'aiUsage', 'blocker']
+  const QUESTION_STEP_IDS = ['assess-q-role', 'assess-q-timeDrain', 'assess-q-aiUsage', 'assess-q-blocker']
+  const SINGLE_SELECT_KEYS = new Set(['aiUsage'])
+
+  const DEFAULT_OPTION_CLASS = 'assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30'
+  const SELECTED_OPTION_CLASS = 'assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/25 text-foreground/90 border-accent/40 font-medium'
+
+  function clearChildren(el) {
+    while (el.firstChild) el.removeChild(el.firstChild)
+  }
+
+  function init() {
+    $('assess-start-btn').addEventListener('click', () => showStep('assess-step-1'))
+    $('assess-linkedin-btn').addEventListener('click', submitLinkedIn)
+    $('assess-email').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') submitLinkedIn()
+    })
+    $('assess-restart').addEventListener('click', restart)
+    $('assess-retry-btn').addEventListener('click', submitAssessment)
+
+    for (let i = 0; i < QUESTION_STEP_IDS.length; i++) {
+      const key = QUESTION_KEYS[i]
+      if (SINGLE_SELECT_KEYS.has(key)) {
+        bindSingleSelect($(QUESTION_STEP_IDS[i]), key)
+      } else {
+        bindMultiSelect($(QUESTION_STEP_IDS[i]), key)
+      }
+    }
+
+    document.querySelectorAll('.assess-continue').forEach((btn) => {
+      const step = parseInt(btn.dataset.step, 10)
+      btn.addEventListener('click', () => continueFromQuestion(step))
+    })
+
+    document.querySelectorAll('.assess-back').forEach((btn) => {
+      const step = parseInt(btn.dataset.step, 10)
+      btn.addEventListener('click', () => showStep('assess-step-' + (step - 1)))
+    })
+
+    $('assess-email').addEventListener('blur', () => {
+      const email = $('assess-email').value.trim()
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        $('assess-linkedin-error').textContent = 'Please enter a valid email address.'
+        $('assess-linkedin-error').classList.remove('hidden')
+      } else {
+        $('assess-linkedin-error').classList.add('hidden')
+      }
+    })
+  }
+
+  function bindSingleSelect(container, key) {
+    container.querySelectorAll('.assess-option').forEach((btn) => {
+      btn.addEventListener('click', () => selectSingle(key, btn, container))
+    })
+  }
+
+  function bindMultiSelect(container, key) {
+    container.querySelectorAll('.assess-option').forEach((btn) => {
+      btn.addEventListener('click', () => toggleOption(key, btn, container))
+    })
+  }
+
+  function selectSingle(key, btn, container) {
+    selections[key].clear()
+    container.querySelectorAll('.assess-option').forEach((b) => {
+      b.className = DEFAULT_OPTION_CLASS
+    })
+    selections[key].add(btn.dataset.value)
+    btn.className = SELECTED_OPTION_CLASS
+  }
+
+  function toggleOption(key, btn, container) {
+    const value = btn.dataset.value
+    if (selections[key].has(value)) {
+      selections[key].delete(value)
+      btn.className = DEFAULT_OPTION_CLASS
+    } else {
+      selections[key].add(value)
+      btn.className = SELECTED_OPTION_CLASS
+    }
+  }
+
+  function continueFromQuestion(step) {
+    const keyIndex = step - 2
+    const key = QUESTION_KEYS[keyIndex]
+    const selected = Array.from(selections[key])
+    const isSingle = SINGLE_SELECT_KEYS.has(key)
+    const otherInput = $('assess-other-' + key)
+    const otherText = otherInput ? otherInput.value.trim() : ''
+
+    if (selected.length === 0 && !otherText) {
+      const errEl = $('assess-err-' + step)
+      errEl.textContent = isSingle ? 'Please select an option.' : 'Please select at least one option or fill in Other.'
+      errEl.classList.remove('hidden')
+      return
+    }
+
+    $('assess-err-' + step).classList.add('hidden')
+
+    if (isSingle) {
+      answers[key] = selected[0]
+    } else {
+      if (otherText) selected.push('other:' + otherText)
+      answers[key] = selected
+    }
+
+    if (step === 5) {
+      submitAssessment()
+    } else {
+      showStep('assess-step-' + (step + 1))
+    }
+  }
+
+  function showStep(stepId) {
+    STEPS.forEach((id) => $(id).classList.add('hidden'))
+    $(stepId).classList.remove('hidden')
+
+    const stepNumber = parseInt(stepId.replace('assess-step-', ''), 10)
+    if (stepNumber >= 1 && stepNumber <= 5) {
+      $('assess-progress').classList.remove('hidden')
+      updateProgress(stepNumber)
+    } else {
+      $('assess-progress').classList.add('hidden')
+    }
+  }
+
+  function updateProgress(current) {
+    for (let i = 1; i <= 5; i++) {
+      $('assess-prog-' + i).className = i <= current
+        ? 'h-1 flex-1 rounded-full bg-accent/40'
+        : 'h-1 flex-1 rounded-full bg-accent/10'
+    }
+  }
+
+  function submitLinkedIn() {
+    const name = $('assess-name').value.trim()
+    const jobTitle = $('assess-jobtitle').value.trim()
+    const company = $('assess-company').value.trim()
+    const email = $('assess-email').value.trim()
+
+    if (!name || !jobTitle || !company) {
+      $('assess-linkedin-error').textContent = 'Please fill in your name, job title, and company.'
+      $('assess-linkedin-error').classList.remove('hidden')
+      return
+    }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      $('assess-linkedin-error').textContent = 'Please enter a valid email address.'
+      $('assess-linkedin-error').classList.remove('hidden')
+      $('assess-email').focus()
+      return
+    }
+    $('assess-linkedin-error').classList.add('hidden')
+    answers.name = name
+    answers.jobTitle = jobTitle
+    answers.company = company
+    answers.email = email
+    showStep('assess-step-2')
+  }
+
+  async function submitAssessment() {
+    showStep('assess-step-loading')
+
+    try {
+      const response = await fetch(appsScriptUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({ action: 'assess', ...answers }),
+        redirect: 'follow'
+      })
+      const data = await response.json()
+
+      if (data.success && data.insights) {
+        renderResults(data.insights)
+        showStep('assess-step-results')
+      } else {
+        showError(data.message || 'Something went wrong. Please try again.')
+      }
+    } catch (_) {
+      showError('Something went wrong. Please try again.')
+    }
+  }
+
+  function renderResults(insights) {
+    $('assess-result-label').textContent = insights.profileLabel || 'Your Results'
+
+    const oppContainer = $('assess-result-opportunities')
+    clearChildren(oppContainer)
+    if (insights.opportunities) {
+      insights.opportunities.forEach((opp) => {
+        const wrapper = document.createElement('div')
+        wrapper.className = 'flex gap-3 text-sm'
+        const dash = document.createElement('span')
+        dash.className = 'text-foreground/30 shrink-0'
+        dash.textContent = '-'
+        const p = document.createElement('p')
+        p.className = 'text-foreground/80'
+        p.textContent = opp
+        wrapper.appendChild(dash)
+        wrapper.appendChild(p)
+        oppContainer.appendChild(wrapper)
+      })
+    }
+
+    $('assess-result-nextstep').textContent = insights.nextStep || 'A coaching session will help you turn these insights into concrete workflow changes.'
+  }
+
+  function showError(message) {
+    $('assess-error-text').textContent = message
+    STEPS.forEach((id) => $(id).classList.add('hidden'))
+    $('assess-error').classList.remove('hidden')
+    $('assess-progress').classList.add('hidden')
+  }
+
+  function restart() {
+    Object.keys(answers).forEach((key) => delete answers[key])
+    QUESTION_KEYS.forEach((key) => selections[key].clear())
+    $('assess-name').value = ''
+    $('assess-jobtitle').value = ''
+    $('assess-company').value = ''
+    $('assess-email').value = ''
+    QUESTION_KEYS.forEach((key) => {
+      const otherInput = $('assess-other-' + key)
+      if (otherInput) otherInput.value = ''
+    })
+    QUESTION_STEP_IDS.forEach((id) => {
+      $(id).querySelectorAll('.assess-option').forEach((btn) => {
+        btn.className = DEFAULT_OPTION_CLASS
+      })
+    })
+    for (let i = 2; i <= 5; i++) $('assess-err-' + i).classList.add('hidden')
+    showStep('assess-step-start')
+    $('assess-progress').classList.add('hidden')
+  }
+
+  init()
+</script>
