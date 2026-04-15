@@ -1,6 +1,6 @@
-// Google Apps Script backend for the AI Coach booking page on danielgrahn.com.
+// Google Apps Script backend for the AI Competence Development booking page on danielgrahn.com.
 // Deployed as a web app, it exposes availability from the primary Google Calendar
-// and creates coaching session bookings with email notifications.
+// and creates competence development session bookings with email notifications.
 
 const TIMEZONE = 'Europe/Stockholm'
 const BUSY_CALENDARS = ['dangrahn@gmail.com']
@@ -10,6 +10,31 @@ const SLOTS = [
 ]
 const MIN_LEAD_DAYS = 5
 const MAX_WEEKS_AHEAD = 6
+
+var BOOKING_TEXTS = {
+  en: {
+    eventTitle: 'AI Competence Development Session',
+    inviteGreeting: "I'm glad you booked a competence development session and look forward to our meeting!",
+    invitePrep: 'Before our session you will receive a pre-interview questionnaire to fill in. This is the only preparation and it only takes 5 minutes.',
+    inviteClosing: 'Looking forward to our meeting and to helping you leverage AI in your daily work!',
+    slotTaken: 'This slot was just booked. Please select another.',
+    bookingConfirmed: 'Booking confirmed.',
+    promptLang: '',
+  },
+  sv: {
+    eventTitle: 'AI-kompetensutvecklingssession',
+    inviteGreeting: 'Vad roligt att du bokat en kompetensutvecklingssession \u2014 jag ser fram emot v\u00e5rt m\u00f6te!',
+    invitePrep: 'Innan sessionen kommer du att f\u00e5 ett f\u00f6rberedelseformul\u00e4r att fylla i. Det \u00e4r den enda f\u00f6rberedelsen och tar bara 5 minuter.',
+    inviteClosing: 'Ser fram emot att hj\u00e4lpa dig dra nytta av AI i ditt dagliga arbete!',
+    slotTaken: 'Den h\u00e4r tiden bokades just. V\u00e4nligen v\u00e4lj en annan.',
+    bookingConfirmed: 'Bokning bekr\u00e4ftad.',
+    promptLang: '',
+  },
+}
+
+function getBookingTexts(lang) {
+  return BOOKING_TEXTS[lang] || BOOKING_TEXTS.en
+}
 
 function handleAvailability(e) {
   const month = (e && e.parameter && e.parameter.month) || ''
@@ -100,17 +125,19 @@ function createBooking(slotStart, slotEnd, body) {
     return jsonResponse({ error: 'busy', message: 'Server is busy. Please try again.' })
   }
 
+  var texts = getBookingTexts(body.lang)
+
   try {
     if (isSlotBusy(slotStart, slotEnd)) {
-      return jsonResponse({ error: 'slot_taken', message: 'This slot was just booked. Please select another.' })
+      return jsonResponse({ error: 'slot_taken', message: texts.slotTaken })
     }
 
     var description = [
-      "I'm glad you booked a coaching session and look forward to our meeting!",
+      texts.inviteGreeting,
       '',
-      'Before our session you will receive a pre-interview questionnaire to fill in. This is the only preparation and it only takes 5 minutes.',
+      texts.invitePrep,
       '',
-      'Looking forward to our meeting and to helping you leverage AI in your daily work!',
+      texts.inviteClosing,
       '',
       '---',
       '',
@@ -124,7 +151,7 @@ function createBooking(slotStart, slotEnd, body) {
       'Booked via danielgrahn.com on ' + formatDate(new Date()),
     ].join('\n')
 
-    var event = CalendarApp.getDefaultCalendar().createEvent('AI Coach Session', slotStart, slotEnd, {
+    var event = CalendarApp.getDefaultCalendar().createEvent(texts.eventTitle, slotStart, slotEnd, {
       description: description,
     })
     event.setVisibility(CalendarApp.Visibility.PRIVATE)
@@ -133,7 +160,7 @@ function createBooking(slotStart, slotEnd, body) {
 
     try { notifyOwner(body, slotStart, slotEnd) } catch (_) {}
 
-    return jsonResponse({ success: true, message: 'Booking confirmed.' })
+    return jsonResponse({ success: true, message: texts.bookingConfirmed })
   } finally {
     lock.releaseLock()
   }
@@ -141,12 +168,12 @@ function createBooking(slotStart, slotEnd, body) {
 
 function notifyOwner(body, slotStart, slotEnd) {
   var dateStr = formatDate(slotStart)
-  var timeStr = slotStart.getHours() + ':00–' + slotEnd.getHours() + ':00'
+  var timeStr = slotStart.getHours() + ':00\u2013' + slotEnd.getHours() + ':00'
 
-  var subject = 'New AI Coach booking: ' + dateStr + ' ' + timeStr
+  var subject = 'New AI Competence Development booking: ' + dateStr + ' ' + timeStr
 
   var emailBody = [
-    'New AI coaching session booked!',
+    'New AI Competence Development session booked!',
     '',
     'Date: ' + dateStr,
     'Time: ' + timeStr,

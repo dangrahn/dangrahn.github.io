@@ -1,0 +1,129 @@
+---
+import { Image } from 'astro:assets'
+import Layout from '~/layouts/Layout.astro'
+import BookingForm from '~/components/BookingForm.astro'
+import AiAssessmentWidget from '~/components/AiAssessmentWidget.astro'
+import avatarImage from '~/content/avatar.jpg'
+import type { AiCoachTranslations } from '~/i18n/ai-coach'
+
+interface Props {
+  t: AiCoachTranslations
+}
+
+const { t } = Astro.props
+const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbzpTiA0UIpMDHcMy3188VvDxhyJ_Xc0gbHlMmbLGR7LvdwDMY-viTkHi6ZWorub1MV-KA/exec'
+---
+
+<Layout title={t.title} description={t.description} lang={t.lang} hreflangAlternates={t.hreflangAlternates}>
+  <article class="max-w-full py-8">
+    <div class="flex justify-end mb-2">
+      <a href={t.otherLangUrl} class="text-xs text-foreground/50 hover:text-foreground/70 transition-colors">
+        {t.otherLangLabel}
+      </a>
+    </div>
+
+    <header class="mb-6">
+      <h1 class="text-xl font-medium text-foreground mb-2">{t.heading}</h1>
+      <p class="mt-6 mb-4 text-base text-foreground/90 font-medium">{t.subtitle}</p>
+      <div class="flex justify-center mb-2">
+        <Image
+          src={avatarImage}
+          alt="Daniel Grahn"
+          class="rounded-full border border-foreground/10 size-20 aspect-square"
+          width={160}
+          height={160}
+        />
+      </div>
+    </header>
+
+    <AiAssessmentWidget appsScriptUrl={appsScriptUrl} lang={t.lang} t={t.assessment} />
+
+    <!-- The gap -->
+    <div class="py-4 mb-8">
+      <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-3">{t.sectionHeading}</h2>
+      <p class="text-sm text-foreground/80">{t.sectionDescription}</p>
+    </div>
+
+    <!-- How it works -->
+    <section class="mb-12">
+      <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-6">{t.howItWorksHeading}</h2>
+      <div class="space-y-6">
+        <div class="flex gap-4">
+          <span class="text-foreground/30 text-sm font-medium shrink-0">01</span>
+          <div>
+            <p class="text-sm font-medium text-foreground/90">{t.step1Title}</p>
+            <p class="text-sm text-foreground/60">{t.step1Description}</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="text-foreground/30 text-sm font-medium shrink-0">02</span>
+          <div>
+            <p class="text-sm font-medium text-foreground/90">{t.step2Title}</p>
+            <p class="text-sm text-foreground/60">{t.step2Description}</p>
+            <p class="text-sm text-foreground/60 mt-2">{t.step2bDescription}</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="text-foreground/30 text-sm font-medium shrink-0">03</span>
+          <div>
+            <p class="text-sm font-medium text-foreground/90">{t.step3Title}</p>
+            <p class="text-sm text-foreground/60">{t.step3Description}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What you'll walk away with -->
+    <section class="mb-12">
+      <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-6">{t.walkAwayHeading}</h2>
+      <ul class="space-y-2 text-sm">
+        {t.walkAwayItems.map((item) => (
+          <li class="text-foreground/80"><span class="text-foreground/30 mr-2">-</span>{item}</li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Real results -->
+    <section class="mb-12">
+      <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-6">{t.resultsHeading}</h2>
+      <div class="space-y-4">
+        <div class="p-4 bg-accent/7 rounded-lg border border-accent/10">
+          <p class="text-sm font-medium text-foreground/90 mb-3">{t.resultCaseTitle}</p>
+          <ul class="space-y-2 text-sm mb-4">
+            {t.resultCaseItems.map((item) => (
+              <li class="text-foreground/70"><span class="text-foreground/30 mr-2">-</span>{item}</li>
+            ))}
+          </ul>
+          <p class="text-sm text-accent font-medium">{t.resultCaseHighlight}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing + Purchase -->
+    <section class="mb-12">
+      <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-6">{t.bookHeading}</h2>
+      <p class="text-sm text-foreground/80 mb-2">
+        <span class="font-medium text-foreground/90">{t.bookPrice}</span> {t.bookIncludes}
+      </p>
+      <BookingForm appsScriptUrl={appsScriptUrl} lang={t.lang} t={t.booking} />
+    </section>
+
+    <div class="flex justify-center mb-8">
+      <Image
+        src={avatarImage}
+        alt="Daniel Grahn"
+        class="rounded-full border border-foreground/10 size-20 aspect-square"
+        width={160}
+        height={160}
+      />
+    </div>
+
+    <!-- Why -->
+    <section class="mb-8">
+      <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-6">{t.whyHeading}</h2>
+      <p class="text-sm text-foreground/80">{t.whyParagraph1}</p>
+      <p class="text-sm text-foreground/80 mt-3">{t.whyParagraph2}</p>
+      <p class="text-sm text-foreground/80 mt-3">{t.whyParagraph3}</p>
+    </section>
+  </article>
+</Layout>

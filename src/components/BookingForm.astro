@@ -1,9 +1,13 @@
 ---
+import type { BookingTranslations } from '~/i18n/ai-coach'
+
 interface Props {
   appsScriptUrl: string
+  lang: string
+  t: BookingTranslations
 }
 
-const { appsScriptUrl } = Astro.props
+const { appsScriptUrl, lang, t } = Astro.props
 ---
 
 <aside id="booking" class="my-12 p-8 bg-accent/7 rounded-lg border border-accent/10">
@@ -17,13 +21,9 @@ const { appsScriptUrl } = Astro.props
       </div>
 
       <div class="grid grid-cols-7 gap-1.5 mb-2">
-        <span class="text-center text-foreground/40 text-sm">Mo</span>
-        <span class="text-center text-foreground/40 text-sm">Tu</span>
-        <span class="text-center text-foreground/40 text-sm">We</span>
-        <span class="text-center text-foreground/40 text-sm">Th</span>
-        <span class="text-center text-foreground/40 text-sm">Fr</span>
-        <span class="text-center text-foreground/40 text-sm">Sa</span>
-        <span class="text-center text-foreground/40 text-sm">Su</span>
+        {t.dayAbbreviations.map((day) => (
+          <span class="text-center text-foreground/40 text-sm">{day}</span>
+        ))}
       </div>
 
       <div id="calendar-grid" class="grid grid-cols-7 gap-1.5 mb-5"></div>
@@ -36,18 +36,18 @@ const { appsScriptUrl } = Astro.props
         </div>
       </div>
 
-      <p class="text-foreground/30 text-sm text-center">All times in Stockholm time (CET/CEST)</p>
+      <p class="text-foreground/30 text-sm text-center">{t.allTimesNote}</p>
 
       <div id="loading-indicator" class="text-foreground/40 text-sm text-center py-4 hidden flex items-center justify-center gap-2">
         <svg class="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
         </svg>
-        <span>Loading availability...</span>
+        <span>{t.loadingAvailability}</span>
       </div>
       <div id="error-message" class="text-sm text-center py-2 hidden">
         <p class="text-red-400 mb-2" id="error-text"></p>
-        <button id="retry-btn" type="button" class="text-foreground/60 text-xs underline hover:text-foreground/80">Retry</button>
+        <button id="retry-btn" type="button" class="text-foreground/60 text-xs underline hover:text-foreground/80">{t.retryButton}</button>
       </div>
     </div>
 
@@ -55,58 +55,58 @@ const { appsScriptUrl } = Astro.props
     <div id="step-details" class="hidden">
       <p id="selected-slot-summary" class="text-foreground/90 text-sm font-medium mb-4"></p>
 
-      <label class="block text-foreground/70 text-sm mb-2" for="booking-email">Your email</label>
-      <input id="booking-email" type="email" required placeholder="you@company.com" class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-4" />
+      <label class="block text-foreground/70 text-sm mb-2" for="booking-email">{t.emailLabel}</label>
+      <input id="booking-email" type="email" required placeholder={t.emailPlaceholder} class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-4" />
 
-      <label class="block text-foreground/70 text-sm mb-2" for="booking-phone">Phone number</label>
-      <input id="booking-phone" type="tel" required placeholder="+46 70 123 4567" class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-4" />
+      <label class="block text-foreground/70 text-sm mb-2" for="booking-phone">{t.phoneLabel}</label>
+      <input id="booking-phone" type="tel" required placeholder={t.phonePlaceholder} class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-4" />
 
-      <label class="block text-foreground/70 text-sm mb-2" for="booking-linkedin">LinkedIn profile URL</label>
-      <input id="booking-linkedin" type="url" required placeholder="https://linkedin.com/in/yourname" class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-4" />
+      <label class="block text-foreground/70 text-sm mb-2" for="booking-linkedin">{t.linkedinLabel}</label>
+      <input id="booking-linkedin" type="url" required placeholder={t.linkedinPlaceholder} class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-4" />
 
-      <label class="block text-foreground/70 text-sm mb-2" for="booking-message">What do you want to get out of the session?</label>
-      <textarea id="booking-message" required rows="4" placeholder="Describe your needs and goals..." class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-4 resize-y"></textarea>
+      <label class="block text-foreground/70 text-sm mb-2" for="booking-message">{t.messageLabel}</label>
+      <textarea id="booking-message" required rows="4" placeholder={t.messagePlaceholder} class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-4 resize-y"></textarea>
 
       <div id="validation-error" class="text-red-400 text-sm mb-3 hidden"></div>
 
-      <button id="continue-btn" type="button" class="w-full px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium mb-3">Continue</button>
-      <button id="back-to-calendar" type="button" class="w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors">&larr; Change slot</button>
+      <button id="continue-btn" type="button" class="w-full px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium mb-3">{t.continueButton}</button>
+      <button id="back-to-calendar" type="button" class="w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors">{t.changeSlot}</button>
     </div>
 
     <!-- Step 3: Confirmation Prompt -->
     <div id="step-confirm" class="hidden">
-      <p class="text-foreground/70 text-sm mb-4">Please verify the details below before confirming.</p>
+      <p class="text-foreground/70 text-sm mb-4">{t.confirmHeading}</p>
 
       <div class="space-y-2 mb-6 text-sm">
         <div class="flex justify-between">
-          <span class="text-foreground/50">Date & time</span>
+          <span class="text-foreground/50">{t.confirmDateLabel}</span>
           <span id="confirm-slot" class="text-foreground/90 font-medium"></span>
         </div>
         <div class="flex justify-between">
-          <span class="text-foreground/50">Email</span>
+          <span class="text-foreground/50">{t.confirmEmailLabel}</span>
           <span id="confirm-email" class="text-foreground/90"></span>
         </div>
         <div class="flex justify-between">
-          <span class="text-foreground/50">Phone</span>
+          <span class="text-foreground/50">{t.confirmPhoneLabel}</span>
           <span id="confirm-phone" class="text-foreground/90"></span>
         </div>
         <div class="flex justify-between">
-          <span class="text-foreground/50">LinkedIn</span>
+          <span class="text-foreground/50">{t.confirmLinkedinLabel}</span>
           <span id="confirm-linkedin" class="text-foreground/90 text-sm truncate ml-2"></span>
         </div>
         <div>
-          <span class="text-foreground/50">Session goals</span>
+          <span class="text-foreground/50">{t.confirmGoalsLabel}</span>
           <p id="confirm-message" class="text-foreground/80 mt-1 text-sm"></p>
         </div>
       </div>
 
-      <button id="confirm-booking-btn" type="button" class="w-full px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium mb-3">Confirm booking (9,900 SEK excl. VAT)</button>
-      <button id="back-to-details" type="button" class="w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors">&larr; Back</button>
+      <button id="confirm-booking-btn" type="button" class="w-full px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium mb-3">{t.confirmButton}</button>
+      <button id="back-to-details" type="button" class="w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors">{t.backButton}</button>
     </div>
 
     <!-- Step 4: Booking Confirmed -->
     <div id="step-done" class="hidden text-center py-4">
-      <p class="text-foreground/90 text-sm font-medium mb-2">Booking confirmed!</p>
+      <p class="text-foreground/90 text-sm font-medium mb-2">{t.bookingConfirmed}</p>
       <p id="done-email-note" class="text-foreground/60 text-sm mb-4"></p>
       <p id="done-slot-summary" class="text-foreground/50 text-xs"></p>
     </div>
@@ -114,9 +114,9 @@ const { appsScriptUrl } = Astro.props
   </div>
 </aside>
 
-<script define:vars={{ appsScriptUrl }}>
-  const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-  const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+<script define:vars={{ appsScriptUrl, lang, t }}>
+  const MONTH_NAMES = t.monthNames
+  const DAY_NAMES = t.dayNames
 
   let currentYear, currentMonth
   let slotsCache = {}
@@ -155,7 +155,7 @@ const { appsScriptUrl } = Astro.props
     $('calendar-grid').style.opacity = '0.5'
 
     try {
-      const url = appsScriptUrl + '?month=' + key
+      const url = appsScriptUrl + '?month=' + key + '&lang=' + lang
       const response = await fetch(url, { redirect: 'follow' })
       const data = await response.json()
       slotsCache[key] = {}
@@ -165,7 +165,7 @@ const { appsScriptUrl } = Astro.props
       }
       renderCalendar()
     } catch (_) {
-      $('error-text').textContent = 'Could not load available slots.'
+      $('error-text').textContent = t.errorLoadSlots
       $('error-message').classList.remove('hidden')
     } finally {
       $('loading-indicator').classList.add('hidden')
@@ -339,16 +339,16 @@ const { appsScriptUrl } = Astro.props
     const message = $('booking-message').value.trim()
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return { field: 'booking-email', error: 'Please enter a valid email address.' }
+      return { field: 'booking-email', error: t.errorEmail }
     }
     if (!phone) {
-      return { field: 'booking-phone', error: 'Please enter your phone number.' }
+      return { field: 'booking-phone', error: t.errorPhone }
     }
     if (!linkedin || !/^https?:\/\/(www\.)?linkedin\.com\/in\//.test(linkedin)) {
-      return { field: 'booking-linkedin', error: 'Please enter a valid LinkedIn profile URL.' }
+      return { field: 'booking-linkedin', error: t.errorLinkedin }
     }
     if (!message) {
-      return { field: 'booking-message', error: 'Please describe what you want from the session.' }
+      return { field: 'booking-message', error: t.errorMessage }
     }
     return null
   }
@@ -379,7 +379,7 @@ const { appsScriptUrl } = Astro.props
   async function submitBooking() {
     const btn = $('confirm-booking-btn')
     btn.disabled = true
-    btn.textContent = 'Booking...'
+    btn.textContent = t.bookingInProgress
 
     try {
       const response = await fetch(appsScriptUrl, {
@@ -388,6 +388,7 @@ const { appsScriptUrl } = Astro.props
         body: JSON.stringify({
           date: selectedDate,
           time: selectedTime,
+          lang,
           email: $('booking-email').value.trim(),
           phone: $('booking-phone').value.trim(),
           linkedin: $('booking-linkedin').value.trim(),
@@ -399,24 +400,24 @@ const { appsScriptUrl } = Astro.props
       const data = await response.json()
 
       if (data.success) {
-        $('done-email-note').textContent = 'A calendar invite has been sent to ' + $('booking-email').value.trim() + '.'
+        $('done-email-note').textContent = t.calendarInviteSent + ' ' + $('booking-email').value.trim() + '.'
         $('done-slot-summary').textContent = slotSummary()
         $('step-confirm').classList.add('hidden')
         $('step-done').classList.remove('hidden')
       } else if (data.error === 'slot_taken') {
         resetAfterError(data.message)
       } else {
-        resetAfterError(data.message || 'Something went wrong. Please try again or email daniel@danielgrahn.com.')
+        resetAfterError(data.message || t.errorGeneric)
       }
     } catch (_) {
-      resetAfterError('Something went wrong. Please try again or email daniel@danielgrahn.com.')
+      resetAfterError(t.errorGeneric)
     }
   }
 
   function resetAfterError(message) {
     const btn = $('confirm-booking-btn')
     btn.disabled = false
-    btn.textContent = 'Confirm booking (9,900 SEK excl. VAT)'
+    btn.textContent = t.confirmButton
     $('step-confirm').classList.add('hidden')
     $('step-calendar').classList.remove('hidden')
     selectedDate = null

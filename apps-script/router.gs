@@ -1,4 +1,4 @@
-// Router for the AI Coach Apps Script project.
+// Router for the AI Competence Development Apps Script project.
 // Dispatches incoming requests to the appropriate handler based on action.
 
 function doGet(e) {

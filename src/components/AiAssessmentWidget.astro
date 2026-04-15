@@ -1,25 +1,28 @@
 ---
+import type { AssessmentTranslations } from '~/i18n/ai-coach'
+
 interface Props {
   appsScriptUrl: string
+  lang: string
+  t: AssessmentTranslations
 }
 
-const { appsScriptUrl } = Astro.props
+const { appsScriptUrl, lang, t } = Astro.props
+const optionClass = 'assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30'
 ---
 
 <aside id="assessment" class="my-4 px-4 py-8 sm:px-8 bg-accent/7 rounded-lg border border-accent/10">
   <div class="mx-auto">
 
-    <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-6 text-center">Find out what AI can do for you</h2>
+    <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-6 text-center">{t.heading}</h2>
 
     <!-- Step 0: Entry -->
     <div id="assess-step-start" class="text-center py-4">
-      <p class="text-sm text-foreground/70 mb-4">
-        A personalized analysis of how AI can elevate your workflow.
-      </p>
+      <p class="text-sm text-foreground/70 mb-4">{t.startDescription}</p>
       <button id="assess-start-btn" type="button" class="inline-block px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium">
-        Check how AI could elevate you
+        {t.startButton}
       </button>
-      <p class="text-foreground/30 text-xs mt-3">Takes under 2 minutes</p>
+      <p class="text-foreground/30 text-xs mt-3">{t.startFootnote}</p>
     </div>
 
     <!-- Progress bar -->
@@ -33,115 +36,91 @@ const { appsScriptUrl } = Astro.props
 
     <!-- Step 1: About you -->
     <div id="assess-step-1" class="hidden">
-      <p class="text-sm text-foreground/90 font-medium mb-4">Tell us about yourself</p>
-      <label class="block text-foreground/60 text-xs mb-1" for="assess-name">Name</label>
-      <input
-        id="assess-name"
-        type="text"
-        required
-        placeholder="Your name"
-        class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-3"
-      />
-      <label class="block text-foreground/60 text-xs mb-1" for="assess-jobtitle">Job title</label>
-      <input
-        id="assess-jobtitle"
-        type="text"
-        required
-        placeholder="e.g. Head of Product, CTO, Marketing Manager"
-        class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-3"
-      />
-      <label class="block text-foreground/60 text-xs mb-1" for="assess-company">Company</label>
-      <input
-        id="assess-company"
-        type="text"
-        required
-        placeholder="Company name"
-        class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-3"
-      />
-      <label class="block text-foreground/60 text-xs mb-1" for="assess-email">Email</label>
-      <input
-        id="assess-email"
-        type="email"
-        required
-        placeholder="you@company.com"
-        class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-3"
-      />
+      <p class="text-sm text-foreground/90 font-medium mb-4">{t.step1Heading}</p>
+      <label class="block text-foreground/60 text-xs mb-1" for="assess-name">{t.nameLabel}</label>
+      <input id="assess-name" type="text" required placeholder={t.namePlaceholder} class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-3" />
+      <label class="block text-foreground/60 text-xs mb-1" for="assess-jobtitle">{t.jobTitleLabel}</label>
+      <input id="assess-jobtitle" type="text" required placeholder={t.jobTitlePlaceholder} class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-3" />
+      <label class="block text-foreground/60 text-xs mb-1" for="assess-company">{t.companyLabel}</label>
+      <input id="assess-company" type="text" required placeholder={t.companyPlaceholder} class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-3" />
+      <label class="block text-foreground/60 text-xs mb-1" for="assess-email">{t.emailLabel}</label>
+      <input id="assess-email" type="email" required placeholder={t.emailPlaceholder} class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-3" />
       <div id="assess-linkedin-error" class="text-red-400 text-sm mb-3 hidden"></div>
       <button id="assess-linkedin-btn" type="button" class="w-full px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium">
-        Continue
+        {t.continueButton}
       </button>
     </div>
 
     <!-- Step 2: Role -->
     <div id="assess-step-2" class="hidden">
-      <p class="text-sm text-foreground/90 font-medium mb-1">Which best describes your day-to-day?</p>
-      <p class="text-sm text-foreground/40 mb-4">Select all that apply</p>
+      <p class="text-sm text-foreground/90 font-medium mb-1">{t.step2Heading}</p>
+      <p class="text-sm text-foreground/40 mb-4">{t.selectAllThatApply}</p>
       <div class="space-y-2" id="assess-q-role">
-        <button type="button" data-value="strategy" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Strategy &amp; decision-making</button>
-        <button type="button" data-value="content" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Creating content, documents, or presentations</button>
-        <button type="button" data-value="data" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Analyzing data, reports, or research</button>
-        <button type="button" data-value="coordination" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Coordinating people, projects, or processes</button>
-        <button type="button" data-value="building" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Building or designing products</button>
+        <button type="button" data-value="strategy" class={optionClass}>{t.roleOptions.strategy}</button>
+        <button type="button" data-value="content" class={optionClass}>{t.roleOptions.content}</button>
+        <button type="button" data-value="data" class={optionClass}>{t.roleOptions.data}</button>
+        <button type="button" data-value="coordination" class={optionClass}>{t.roleOptions.coordination}</button>
+        <button type="button" data-value="building" class={optionClass}>{t.roleOptions.building}</button>
       </div>
       <div class="mt-2">
-        <input id="assess-other-role" type="text" placeholder="Other..." class="w-full px-4 py-3 bg-background border border-accent/15 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40" />
+        <input id="assess-other-role" type="text" placeholder={t.otherPlaceholder} class="w-full px-4 py-3 bg-background border border-accent/15 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40" />
       </div>
       <div id="assess-err-2" class="text-red-400 text-sm mt-3 hidden"></div>
-      <button type="button" data-step="2" class="assess-continue w-full px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium mt-4">Continue</button>
-      <button type="button" data-step="2" class="assess-back w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors mt-2">&larr; Back</button>
+      <button type="button" data-step="2" class="assess-continue w-full px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium mt-4">{t.continueButton}</button>
+      <button type="button" data-step="2" class="assess-back w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors mt-2">{t.backButton}</button>
     </div>
 
     <!-- Step 3: Time drain -->
     <div id="assess-step-3" class="hidden">
-      <p class="text-sm text-foreground/90 font-medium mb-1">Where does most of your repetitive time go?</p>
-      <p class="text-sm text-foreground/40 mb-4">Select all that apply</p>
+      <p class="text-sm text-foreground/90 font-medium mb-1">{t.step3Heading}</p>
+      <p class="text-sm text-foreground/40 mb-4">{t.selectAllThatApply}</p>
       <div class="space-y-2" id="assess-q-timeDrain">
-        <button type="button" data-value="communication" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Emails, messages, and status updates</button>
-        <button type="button" data-value="meetings" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Meetings, notes, and follow-ups</button>
-        <button type="button" data-value="research" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Searching for info or compiling reports</button>
-        <button type="button" data-value="reviewing" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Reviewing, editing, or formatting documents</button>
-        <button type="button" data-value="dataEntry" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Manual data entry or moving data between tools</button>
+        <button type="button" data-value="communication" class={optionClass}>{t.timeDrainOptions.communication}</button>
+        <button type="button" data-value="meetings" class={optionClass}>{t.timeDrainOptions.meetings}</button>
+        <button type="button" data-value="research" class={optionClass}>{t.timeDrainOptions.research}</button>
+        <button type="button" data-value="reviewing" class={optionClass}>{t.timeDrainOptions.reviewing}</button>
+        <button type="button" data-value="dataEntry" class={optionClass}>{t.timeDrainOptions.dataEntry}</button>
       </div>
       <div class="mt-2">
-        <input id="assess-other-timeDrain" type="text" placeholder="Other..." class="w-full px-4 py-3 bg-background border border-accent/15 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40" />
+        <input id="assess-other-timeDrain" type="text" placeholder={t.otherPlaceholder} class="w-full px-4 py-3 bg-background border border-accent/15 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40" />
       </div>
       <div id="assess-err-3" class="text-red-400 text-sm mt-3 hidden"></div>
-      <button type="button" data-step="3" class="assess-continue w-full px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium mt-4">Continue</button>
-      <button type="button" data-step="3" class="assess-back w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors mt-2">&larr; Back</button>
+      <button type="button" data-step="3" class="assess-continue w-full px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium mt-4">{t.continueButton}</button>
+      <button type="button" data-step="3" class="assess-back w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors mt-2">{t.backButton}</button>
     </div>
 
     <!-- Step 4: Current AI usage (single choice) -->
     <div id="assess-step-4" class="hidden">
-      <p class="text-sm text-foreground/90 font-medium mb-4">How are you using AI today?</p>
+      <p class="text-sm text-foreground/90 font-medium mb-4">{t.step4Heading}</p>
       <div class="space-y-2" id="assess-q-aiUsage">
-        <button type="button" data-value="none" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Haven't really started yet</button>
-        <button type="button" data-value="occasional" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Occasional ChatGPT for writing or brainstorming</button>
-        <button type="button" data-value="regular" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Regular use of one AI tool for specific tasks</button>
-        <button type="button" data-value="multiple" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Multiple AI tools in my workflow</button>
-        <button type="button" data-value="advanced" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Building custom automations or AI agents</button>
+        <button type="button" data-value="none" class={optionClass}>{t.aiUsageOptions.none}</button>
+        <button type="button" data-value="occasional" class={optionClass}>{t.aiUsageOptions.occasional}</button>
+        <button type="button" data-value="regular" class={optionClass}>{t.aiUsageOptions.regular}</button>
+        <button type="button" data-value="multiple" class={optionClass}>{t.aiUsageOptions.multiple}</button>
+        <button type="button" data-value="advanced" class={optionClass}>{t.aiUsageOptions.advanced}</button>
       </div>
       <div id="assess-err-4" class="text-red-400 text-sm mt-3 hidden"></div>
-      <button type="button" data-step="4" class="assess-continue w-full px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium mt-4">Continue</button>
-      <button type="button" data-step="4" class="assess-back w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors mt-2">&larr; Back</button>
+      <button type="button" data-step="4" class="assess-continue w-full px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium mt-4">{t.continueButton}</button>
+      <button type="button" data-step="4" class="assess-back w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors mt-2">{t.backButton}</button>
     </div>
 
     <!-- Step 5: Blocker -->
     <div id="assess-step-5" class="hidden">
-      <p class="text-sm text-foreground/90 font-medium mb-1">What's holding you back from doing more with AI?</p>
-      <p class="text-sm text-foreground/40 mb-4">Select all that apply</p>
+      <p class="text-sm text-foreground/90 font-medium mb-1">{t.step5Heading}</p>
+      <p class="text-sm text-foreground/40 mb-4">{t.selectAllThatApply}</p>
       <div class="space-y-2" id="assess-q-blocker">
-        <button type="button" data-value="unsure" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Not sure where to start or what's possible</button>
-        <button type="button" data-value="privacy" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Data privacy or security concerns</button>
-        <button type="button" data-value="time" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">Hard to find time to learn and experiment</button>
-        <button type="button" data-value="tools" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">The tools I've tried didn't stick</button>
-        <button type="button" data-value="organization" class="assess-option w-full text-left px-4 py-3 rounded border text-sm transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30">My organization hasn't adopted AI yet</button>
+        <button type="button" data-value="unsure" class={optionClass}>{t.blockerOptions.unsure}</button>
+        <button type="button" data-value="privacy" class={optionClass}>{t.blockerOptions.privacy}</button>
+        <button type="button" data-value="time" class={optionClass}>{t.blockerOptions.time}</button>
+        <button type="button" data-value="tools" class={optionClass}>{t.blockerOptions.tools}</button>
+        <button type="button" data-value="organization" class={optionClass}>{t.blockerOptions.organization}</button>
       </div>
       <div class="mt-2">
-        <input id="assess-other-blocker" type="text" placeholder="Other..." class="w-full px-4 py-3 bg-background border border-accent/15 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40" />
+        <input id="assess-other-blocker" type="text" placeholder={t.otherPlaceholder} class="w-full px-4 py-3 bg-background border border-accent/15 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40" />
       </div>
       <div id="assess-err-5" class="text-red-400 text-sm mt-3 hidden"></div>
-      <button type="button" data-step="5" class="assess-continue w-full px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium mt-4">Continue</button>
-      <button type="button" data-step="5" class="assess-back w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors mt-2">&larr; Back</button>
+      <button type="button" data-step="5" class="assess-continue w-full px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium mt-4">{t.continueButton}</button>
+      <button type="button" data-step="5" class="assess-back w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors mt-2">{t.backButton}</button>
     </div>
 
     <!-- Loading -->
@@ -151,46 +130,46 @@ const { appsScriptUrl } = Astro.props
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
         </svg>
-        <span>Analyzing your profile...</span>
+        <span>{t.analyzingLabel}</span>
       </div>
-      <p class="text-foreground/30 text-xs">This may take a few seconds</p>
+      <p class="text-foreground/30 text-xs">{t.analyzingFootnote}</p>
     </div>
 
     <!-- Results -->
     <div id="assess-step-results" class="hidden">
       <div class="text-center mb-6">
-        <p class="text-xs uppercase tracking-wider text-foreground/50">Your AI Readiness</p>
+        <p class="text-xs uppercase tracking-wider text-foreground/50">{t.resultHeading}</p>
         <p id="assess-result-label" class="text-lg font-medium text-foreground/90 mt-1"></p>
       </div>
 
       <div class="mb-6">
-        <p class="text-xs uppercase tracking-wider text-foreground/50 mb-3">Likely opportunities</p>
+        <p class="text-xs uppercase tracking-wider text-foreground/50 mb-3">{t.opportunitiesHeading}</p>
         <div id="assess-result-opportunities" class="space-y-2"></div>
       </div>
 
       <div class="p-5 bg-accent/7 rounded-lg border border-accent/10 text-center">
-        <p class="text-sm text-foreground/80 mb-1">Ready to turn these insights into action?</p>
+        <p class="text-sm text-foreground/80 mb-1">{t.resultCta}</p>
         <p id="assess-result-nextstep" class="text-sm text-foreground/60 mb-4"></p>
         <a href="#booking" class="inline-block px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium">
-          Book your AI coaching session
+          {t.resultBookButton}
         </a>
       </div>
 
       <button type="button" id="assess-restart" class="w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors mt-4">
-        Take assessment again
+        {t.restartButton}
       </button>
     </div>
 
     <!-- Error -->
     <div id="assess-error" class="hidden text-center py-4">
       <p id="assess-error-text" class="text-red-400 text-sm mb-2"></p>
-      <button id="assess-retry-btn" type="button" class="text-foreground/60 text-xs underline hover:text-foreground/80">Retry</button>
+      <button id="assess-retry-btn" type="button" class="text-foreground/60 text-xs underline hover:text-foreground/80">{t.retryButton}</button>
     </div>
 
   </div>
 </aside>
 
-<script define:vars={{ appsScriptUrl }}>
+<script define:vars={{ appsScriptUrl, lang, t }}>
   const $ = (id) => document.getElementById(id)
 
   const answers = {}
@@ -239,7 +218,7 @@ const { appsScriptUrl } = Astro.props
     $('assess-email').addEventListener('blur', () => {
       const email = $('assess-email').value.trim()
       if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        $('assess-linkedin-error').textContent = 'Please enter a valid email address.'
+        $('assess-linkedin-error').textContent = t.errorEmail
         $('assess-linkedin-error').classList.remove('hidden')
       } else {
         $('assess-linkedin-error').classList.add('hidden')
@@ -289,7 +268,7 @@ const { appsScriptUrl } = Astro.props
 
     if (selected.length === 0 && !otherText) {
       const errEl = $('assess-err-' + step)
-      errEl.textContent = isSingle ? 'Please select an option.' : 'Please select at least one option or fill in Other.'
+      errEl.textContent = isSingle ? t.errorSelectOne : t.errorSelectMultiple
       errEl.classList.remove('hidden')
       return
     }
@@ -338,12 +317,12 @@ const { appsScriptUrl } = Astro.props
     const email = $('assess-email').value.trim()
 
     if (!name || !jobTitle || !company) {
-      $('assess-linkedin-error').textContent = 'Please fill in your name, job title, and company.'
+      $('assess-linkedin-error').textContent = t.errorFillFields
       $('assess-linkedin-error').classList.remove('hidden')
       return
     }
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      $('assess-linkedin-error').textContent = 'Please enter a valid email address.'
+      $('assess-linkedin-error').textContent = t.errorEmail
       $('assess-linkedin-error').classList.remove('hidden')
       $('assess-email').focus()
       return
@@ -363,7 +342,7 @@ const { appsScriptUrl } = Astro.props
       const response = await fetch(appsScriptUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify({ action: 'assess', ...answers }),
+        body: JSON.stringify({ action: 'assess', lang, ...answers }),
         redirect: 'follow'
       })
       const data = await response.json()
@@ -372,15 +351,15 @@ const { appsScriptUrl } = Astro.props
         renderResults(data.insights)
         showStep('assess-step-results')
       } else {
-        showError(data.message || 'Something went wrong. Please try again.')
+        showError(data.message || t.errorFallback)
       }
     } catch (_) {
-      showError('Something went wrong. Please try again.')
+      showError(t.errorFallback)
     }
   }
 
   function renderResults(insights) {
-    $('assess-result-label').textContent = insights.profileLabel || 'Your Results'
+    $('assess-result-label').textContent = insights.profileLabel || t.resultFallbackLabel
 
     const oppContainer = $('assess-result-opportunities')
     clearChildren(oppContainer)
@@ -400,7 +379,7 @@ const { appsScriptUrl } = Astro.props
       })
     }
 
-    $('assess-result-nextstep').textContent = insights.nextStep || 'A coaching session will help you turn these insights into concrete workflow changes.'
+    $('assess-result-nextstep').textContent = insights.nextStep || t.resultFallbackNextStep
   }
 
   function showError(message) {
