@@ -1,0 +1,121 @@
+---
+import { Image } from 'astro:assets'
+import Layout from '~/layouts/Layout.astro'
+import BookingForm from '~/components/BookingForm.astro'
+import AiAssessmentWidget from '~/components/AiAssessmentWidget.astro'
+import avatarImage from '~/content/avatar.jpg'
+
+const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbzpTiA0UIpMDHcMy3188VvDxhyJ_Xc0gbHlMmbLGR7LvdwDMY-viTkHi6ZWorub1MV-KA/exec'
+---
+
+<Layout title="AI Coach Session" description="Hands-on AI coaching for individuals and teams. Pre-interview questionnaire, online session, and follow-up report. 9,900 SEK per session.">
+  <article class="max-w-full py-8">
+    <header class="mb-6">
+      <h1 class="text-xl font-medium text-foreground mb-2">
+        AI Coach Session (online)
+      </h1>
+      <p class="mt-6 mb-4 text-base text-foreground/90 font-medium">
+        Online coaching that takes you from surface-level AI usage to real workflow integration.
+      </p>
+      <div class="flex justify-center mb-2">
+        <Image
+          src={avatarImage}
+          alt="Daniel Grahn"
+          class="rounded-full border border-foreground/10 size-20 aspect-square"
+          width={160}
+          height={160}
+        />
+      </div>
+    </header>
+
+    <AiAssessmentWidget appsScriptUrl={appsScriptUrl} />
+
+    <!-- The gap -->
+    <div class="sticky top-0 z-10 bg-background py-4 mb-8">
+      <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-3">AI Coaching Session</h2>
+      <p class="text-sm text-foreground/80">
+        Knowing where AI fits is the first step. The real value comes from integrating it into how you actually work — your workflows, your tools, your data. That's what this coaching session delivers.
+      </p>
+    </div>
+
+    <!-- How it works -->
+    <section class="mb-12">
+      <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-6">How it works</h2>
+      <div class="space-y-6">
+        <div class="flex gap-4">
+          <span class="text-foreground/30 text-sm font-medium shrink-0">01</span>
+          <div>
+            <p class="text-sm font-medium text-foreground/90">Pre-interview questionnaire</p>
+            <p class="text-sm text-foreground/60">You fill out a pre-interview questionnaire about your workflow, tools, processes, and data. I use this to build a session tailored to your actual work.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="text-foreground/30 text-sm font-medium shrink-0">02</span>
+          <div>
+            <p class="text-sm font-medium text-foreground/90">Online session</p>
+            <p class="text-sm text-foreground/60">Working through your workflow in depth - understanding how you work today and mapping where the latest AI tools and techniques could make a real difference.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="text-foreground/30 text-sm font-medium shrink-0">03</span>
+          <div>
+            <p class="text-sm font-medium text-foreground/90">Follow-up report</p>
+            <p class="text-sm text-foreground/60">A written playbook covering everything from the session: AI opportunities mapped to your workflow, recommended tools, and concrete next steps.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What you'll walk away with -->
+    <section class="mb-12">
+      <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-6">What you'll walk away with</h2>
+      <ul class="space-y-2 text-sm">
+        <li class="text-foreground/80"><span class="text-foreground/30 mr-2">-</span>Clarity on where AI fits in your specific workflow</li>
+        <li class="text-foreground/80"><span class="text-foreground/30 mr-2">-</span>Repetitive work identified and matched with suggested tailored AI agents</li>
+        <li class="text-foreground/80"><span class="text-foreground/30 mr-2">-</span>Security and data privacy assessment with suitable approaches for your context</li>
+        <li class="text-foreground/80"><span class="text-foreground/30 mr-2">-</span>A concrete plan for integrating AI into your day-to-day</li>
+      </ul>
+    </section>
+
+    <!-- Real results -->
+    <section class="mb-12">
+      <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-6">Results from previous sessions</h2>
+      <div class="space-y-4">
+        <div class="p-4 bg-accent/7 rounded-lg border border-accent/10">
+          <p class="text-sm font-medium text-foreground/90 mb-3">Environmental Consultant — Water Ecology</p>
+          <ul class="space-y-2 text-sm mb-4">
+            <li class="text-foreground/70"><span class="text-foreground/30 mr-2">-</span>Report drafting cut by 50–70% per document</li>
+            <li class="text-foreground/70"><span class="text-foreground/30 mr-2">-</span>Voice memos from site visits turned into structured drafts automatically</li>
+            <li class="text-foreground/70"><span class="text-foreground/30 mr-2">-</span>Proofreading and quality review 70–90% faster</li>
+          </ul>
+          <p class="text-sm text-accent font-medium">15–25 hours/week in potential time savings</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing + Purchase -->
+    <section class="mb-12">
+      <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-6">Book Your AI-Coaching Now</h2>
+      <p class="text-sm text-foreground/80 mb-2">
+        <span class="font-medium text-foreground/90">9,900 SEK per session (excl. VAT).</span> Pre-interview questionnaire, session, and report included.
+      </p>
+      <BookingForm appsScriptUrl={appsScriptUrl} />
+    </section>
+
+    <!-- About -->
+    <section class="mb-8">
+      <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-6">Your coach</h2>
+      <div class="flex items-start gap-4">
+        <Image
+          src={avatarImage}
+          alt="Daniel Grahn"
+          class="rounded-full border border-foreground/10 size-16 aspect-square shrink-0"
+          width={64}
+          height={64}
+        />
+        <p class="text-sm text-foreground/80">
+        I'm Daniel Grahn - software engineer, product owner, and AI-native practitioner. I use AI in my work every day, not as a gimmick but as core infrastructure. I've helped teams go from "we should use AI" to actually shipping AI-powered workflow.        </p>
+      </div>
+    </section>
+  </article>
+</Layout>

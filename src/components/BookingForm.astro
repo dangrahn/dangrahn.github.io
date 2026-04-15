@@ -1,0 +1,432 @@
+---
+interface Props {
+  appsScriptUrl: string
+}
+
+const { appsScriptUrl } = Astro.props
+---
+
+<aside id="booking" class="my-12 p-8 bg-accent/7 rounded-lg border border-accent/10">
+  <div class="max-w-md mx-auto">
+    <!-- Step 1: Calendar + Slot Selection -->
+    <div id="step-calendar">
+      <div class="flex items-center justify-between mb-4">
+        <button id="prev-month" type="button" class="w-9 h-9 flex items-center justify-center bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-base font-medium">&lsaquo;</button>
+        <span id="month-label" class="text-foreground/90 text-base font-medium"></span>
+        <button id="next-month" type="button" class="w-9 h-9 flex items-center justify-center bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-base font-medium">&rsaquo;</button>
+      </div>
+
+      <div class="grid grid-cols-7 gap-1.5 mb-2">
+        <span class="text-center text-foreground/40 text-sm">Mo</span>
+        <span class="text-center text-foreground/40 text-sm">Tu</span>
+        <span class="text-center text-foreground/40 text-sm">We</span>
+        <span class="text-center text-foreground/40 text-sm">Th</span>
+        <span class="text-center text-foreground/40 text-sm">Fr</span>
+        <span class="text-center text-foreground/40 text-sm">Sa</span>
+        <span class="text-center text-foreground/40 text-sm">Su</span>
+      </div>
+
+      <div id="calendar-grid" class="grid grid-cols-7 gap-1.5 mb-5"></div>
+
+      <div id="slot-picker" class="hidden mb-5">
+        <p id="slot-date-label" class="text-foreground/70 text-sm mb-3"></p>
+        <div class="flex gap-3">
+          <button id="slot-morning" type="button" class="flex-1 px-4 py-2.5 rounded border text-sm font-medium transition-colors">09:00–12:00</button>
+          <button id="slot-afternoon" type="button" class="flex-1 px-4 py-2.5 rounded border text-sm font-medium transition-colors">13:00–16:00</button>
+        </div>
+      </div>
+
+      <p class="text-foreground/30 text-sm text-center">All times in Stockholm time (CET/CEST)</p>
+
+      <div id="loading-indicator" class="text-foreground/40 text-sm text-center py-4 hidden flex items-center justify-center gap-2">
+        <svg class="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+        </svg>
+        <span>Loading availability...</span>
+      </div>
+      <div id="error-message" class="text-sm text-center py-2 hidden">
+        <p class="text-red-400 mb-2" id="error-text"></p>
+        <button id="retry-btn" type="button" class="text-foreground/60 text-xs underline hover:text-foreground/80">Retry</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Contact Details -->
+    <div id="step-details" class="hidden">
+      <p id="selected-slot-summary" class="text-foreground/90 text-sm font-medium mb-4"></p>
+
+      <label class="block text-foreground/70 text-sm mb-2" for="booking-email">Your email</label>
+      <input id="booking-email" type="email" required placeholder="you@company.com" class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-4" />
+
+      <label class="block text-foreground/70 text-sm mb-2" for="booking-phone">Phone number</label>
+      <input id="booking-phone" type="tel" required placeholder="+46 70 123 4567" class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-4" />
+
+      <label class="block text-foreground/70 text-sm mb-2" for="booking-linkedin">LinkedIn profile URL</label>
+      <input id="booking-linkedin" type="url" required placeholder="https://linkedin.com/in/yourname" class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-4" />
+
+      <label class="block text-foreground/70 text-sm mb-2" for="booking-message">What do you want to get out of the session?</label>
+      <textarea id="booking-message" required rows="4" placeholder="Describe your needs and goals..." class="w-full px-3 py-2 bg-background border border-accent/20 rounded text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-accent/40 mb-4 resize-y"></textarea>
+
+      <div id="validation-error" class="text-red-400 text-sm mb-3 hidden"></div>
+
+      <button id="continue-btn" type="button" class="w-full px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium mb-3">Continue</button>
+      <button id="back-to-calendar" type="button" class="w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors">&larr; Change slot</button>
+    </div>
+
+    <!-- Step 3: Confirmation Prompt -->
+    <div id="step-confirm" class="hidden">
+      <p class="text-foreground/70 text-sm mb-4">Please verify the details below before confirming.</p>
+
+      <div class="space-y-2 mb-6 text-sm">
+        <div class="flex justify-between">
+          <span class="text-foreground/50">Date & time</span>
+          <span id="confirm-slot" class="text-foreground/90 font-medium"></span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-foreground/50">Email</span>
+          <span id="confirm-email" class="text-foreground/90"></span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-foreground/50">Phone</span>
+          <span id="confirm-phone" class="text-foreground/90"></span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-foreground/50">LinkedIn</span>
+          <span id="confirm-linkedin" class="text-foreground/90 text-sm truncate ml-2"></span>
+        </div>
+        <div>
+          <span class="text-foreground/50">Session goals</span>
+          <p id="confirm-message" class="text-foreground/80 mt-1 text-sm"></p>
+        </div>
+      </div>
+
+      <button id="confirm-booking-btn" type="button" class="w-full px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium mb-3">Confirm booking (9,900 SEK excl. VAT)</button>
+      <button id="back-to-details" type="button" class="w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors">&larr; Back</button>
+    </div>
+
+    <!-- Step 4: Booking Confirmed -->
+    <div id="step-done" class="hidden text-center py-4">
+      <p class="text-foreground/90 text-sm font-medium mb-2">Booking confirmed!</p>
+      <p id="done-email-note" class="text-foreground/60 text-sm mb-4"></p>
+      <p id="done-slot-summary" class="text-foreground/50 text-xs"></p>
+    </div>
+
+  </div>
+</aside>
+
+<script define:vars={{ appsScriptUrl }}>
+  const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+
+  let currentYear, currentMonth
+  let slotsCache = {}
+  let selectedDate = null
+  let selectedTime = null
+
+  const $ = (id) => document.getElementById(id)
+
+  function init() {
+    const now = new Date()
+    currentYear = now.getFullYear()
+    currentMonth = now.getMonth()
+
+    $('prev-month').addEventListener('click', () => navigateMonth(-1))
+    $('next-month').addEventListener('click', () => navigateMonth(1))
+    $('slot-morning').addEventListener('click', () => pickSlot('09:00'))
+    $('slot-afternoon').addEventListener('click', () => pickSlot('13:00'))
+    $('continue-btn').addEventListener('click', goToConfirm)
+    $('back-to-calendar').addEventListener('click', goToCalendar)
+    $('confirm-booking-btn').addEventListener('click', submitBooking)
+    $('back-to-details').addEventListener('click', showDetails)
+    $('retry-btn').addEventListener('click', () => fetchAvailability(currentYear, currentMonth))
+
+    renderCalendar()
+    fetchAvailability(currentYear, currentMonth)
+  }
+
+  function monthKey(year, month) {
+    return year + '-' + String(month + 1).padStart(2, '0')
+  }
+
+  async function fetchAvailability(year, month) {
+    const key = monthKey(year, month)
+    $('loading-indicator').classList.remove('hidden')
+    $('error-message').classList.add('hidden')
+    $('calendar-grid').style.opacity = '0.5'
+
+    try {
+      const url = appsScriptUrl + '?month=' + key
+      const response = await fetch(url, { redirect: 'follow' })
+      const data = await response.json()
+      slotsCache[key] = {}
+      for (const slot of data.slots) {
+        if (!slotsCache[key][slot.date]) slotsCache[key][slot.date] = {}
+        slotsCache[key][slot.date][slot.time] = slot.available
+      }
+      renderCalendar()
+    } catch (_) {
+      $('error-text').textContent = 'Could not load available slots.'
+      $('error-message').classList.remove('hidden')
+    } finally {
+      $('loading-indicator').classList.add('hidden')
+      $('calendar-grid').style.opacity = '1'
+    }
+  }
+
+  function navigateMonth(direction) {
+    currentMonth += direction
+    if (currentMonth < 0) { currentMonth = 11; currentYear-- }
+    if (currentMonth > 11) { currentMonth = 0; currentYear++ }
+
+    clampToViewableRange()
+
+    selectedDate = null
+    selectedTime = null
+    $('slot-picker').classList.add('hidden')
+
+    renderCalendar()
+
+    const key = monthKey(currentYear, currentMonth)
+    if (!slotsCache[key]) fetchAvailability(currentYear, currentMonth)
+  }
+
+  function clampToViewableRange() {
+    const now = new Date()
+    const minYear = now.getFullYear()
+    const minMonth = now.getMonth()
+    const maxEnd = new Date(minYear, minMonth + 2, 0)
+
+    if (currentYear < minYear || (currentYear === minYear && currentMonth < minMonth)) {
+      currentYear = minYear
+      currentMonth = minMonth
+    }
+    if (new Date(currentYear, currentMonth, 1) > maxEnd) {
+      currentYear = maxEnd.getFullYear()
+      currentMonth = maxEnd.getMonth()
+    }
+  }
+
+  function clearChildren(element) {
+    while (element.firstChild) {
+      element.removeChild(element.firstChild)
+    }
+  }
+
+  function renderCalendar() {
+    $('month-label').textContent = MONTH_NAMES[currentMonth] + ' ' + currentYear
+
+    const grid = $('calendar-grid')
+    clearChildren(grid)
+
+    const firstDay = new Date(currentYear, currentMonth, 1)
+    let startDay = firstDay.getDay() - 1
+    if (startDay < 0) startDay = 6
+
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate()
+    const key = monthKey(currentYear, currentMonth)
+    const monthSlots = slotsCache[key] || {}
+
+    for (let i = 0; i < startDay; i++) {
+      grid.appendChild(document.createElement('div'))
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dateStr = currentYear + '-' + String(currentMonth + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0')
+      grid.appendChild(createDayButton(day, dateStr, monthSlots[dateStr]))
+    }
+  }
+
+  function createDayButton(day, dateStr, daySlots) {
+    const hasAvailable = daySlots && (daySlots['09:00'] || daySlots['13:00'])
+    const date = new Date(currentYear, currentMonth, day)
+    const isWeekend = date.getDay() === 0 || date.getDay() === 6
+
+    const btn = document.createElement('button')
+    btn.type = 'button'
+    btn.textContent = String(day)
+
+    const base = 'w-full aspect-square flex items-center justify-center rounded text-sm transition-colors '
+
+    if (isWeekend || !hasAvailable) {
+      btn.className = base + 'text-foreground/20 cursor-default'
+      btn.disabled = true
+    } else if (selectedDate === dateStr) {
+      btn.className = base + 'bg-accent/25 text-foreground/90 border border-accent/40 font-medium'
+      btn.addEventListener('click', () => selectDate(dateStr))
+    } else {
+      btn.className = base + 'bg-accent/10 text-foreground/80 border border-accent/15 hover:bg-accent/20 hover:border-accent/30 cursor-pointer'
+      btn.addEventListener('click', () => selectDate(dateStr))
+    }
+
+    return btn
+  }
+
+  function getDaySlots(dateStr) {
+    const key = monthKey(currentYear, currentMonth)
+    return (slotsCache[key] && slotsCache[key][dateStr]) ? slotsCache[key][dateStr] : {}
+  }
+
+  function selectDate(dateStr) {
+    selectedDate = dateStr
+    selectedTime = null
+    renderCalendar()
+
+    const daySlots = getDaySlots(dateStr)
+
+    const date = new Date(dateStr + 'T00:00:00')
+    $('slot-date-label').textContent = DAY_NAMES[date.getDay()] + ' ' + date.getDate() + ' ' + MONTH_NAMES[date.getMonth()]
+
+    updateSlotButton($('slot-morning'), daySlots['09:00'], '09:00')
+    updateSlotButton($('slot-afternoon'), daySlots['13:00'], '13:00')
+
+    $('slot-picker').classList.remove('hidden')
+  }
+
+  function updateSlotButton(btn, available, time) {
+    btn.onclick = null
+    if (available) {
+      if (selectedTime === time) {
+        btn.className = 'flex-1 px-4 py-2.5 rounded border text-sm font-medium transition-colors bg-accent/25 text-foreground/90 border-accent/40 ring-1 ring-accent/30'
+      } else {
+        btn.className = 'flex-1 px-4 py-2.5 rounded border text-sm font-medium transition-colors bg-accent/10 text-foreground/80 border-accent/15 hover:bg-accent/20 hover:border-accent/30 cursor-pointer'
+      }
+      btn.disabled = false
+      btn.onclick = () => pickSlot(time)
+    } else {
+      btn.className = 'flex-1 px-4 py-2.5 rounded border text-sm font-medium transition-colors bg-background text-foreground/20 border-foreground/5 cursor-not-allowed line-through'
+      btn.disabled = true
+    }
+  }
+
+  function pickSlot(time) {
+    selectedTime = time
+    const daySlots = getDaySlots(selectedDate)
+    updateSlotButton($('slot-morning'), daySlots['09:00'], '09:00')
+    updateSlotButton($('slot-afternoon'), daySlots['13:00'], '13:00')
+
+    if (selectedDate && selectedTime) {
+      setTimeout(() => showDetails(), 300)
+    }
+  }
+
+  function slotSummary() {
+    const date = new Date(selectedDate + 'T00:00:00')
+    const dayName = DAY_NAMES[date.getDay()]
+    const monthName = MONTH_NAMES[date.getMonth()]
+    const endTime = selectedTime === '09:00' ? '12:00' : '16:00'
+    return dayName + ' ' + date.getDate() + ' ' + monthName + ', ' + selectedTime + '\u2013' + endTime
+  }
+
+  function showDetails() {
+    if (!selectedDate || !selectedTime) return
+    $('selected-slot-summary').textContent = slotSummary()
+    $('step-calendar').classList.add('hidden')
+    $('step-confirm').classList.add('hidden')
+    $('step-details').classList.remove('hidden')
+    $('validation-error').classList.add('hidden')
+  }
+
+  function goToCalendar() {
+    $('step-details').classList.add('hidden')
+    $('step-confirm').classList.add('hidden')
+    $('step-calendar').classList.remove('hidden')
+  }
+
+  function validateContactForm() {
+    const email = $('booking-email').value.trim()
+    const phone = $('booking-phone').value.trim()
+    const linkedin = $('booking-linkedin').value.trim()
+    const message = $('booking-message').value.trim()
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return { field: 'booking-email', error: 'Please enter a valid email address.' }
+    }
+    if (!phone) {
+      return { field: 'booking-phone', error: 'Please enter your phone number.' }
+    }
+    if (!linkedin || !/^https?:\/\/(www\.)?linkedin\.com\/in\//.test(linkedin)) {
+      return { field: 'booking-linkedin', error: 'Please enter a valid LinkedIn profile URL.' }
+    }
+    if (!message) {
+      return { field: 'booking-message', error: 'Please describe what you want from the session.' }
+    }
+    return null
+  }
+
+  function goToConfirm() {
+    const invalid = validateContactForm()
+    if (invalid) {
+      showValidationError(invalid.error)
+      $(invalid.field).focus()
+      return
+    }
+
+    $('confirm-slot').textContent = slotSummary()
+    $('confirm-email').textContent = $('booking-email').value.trim()
+    $('confirm-phone').textContent = $('booking-phone').value.trim()
+    $('confirm-linkedin').textContent = $('booking-linkedin').value.trim()
+    $('confirm-message').textContent = $('booking-message').value.trim()
+
+    $('step-details').classList.add('hidden')
+    $('step-confirm').classList.remove('hidden')
+  }
+
+  function showValidationError(msg) {
+    $('validation-error').textContent = msg
+    $('validation-error').classList.remove('hidden')
+  }
+
+  async function submitBooking() {
+    const btn = $('confirm-booking-btn')
+    btn.disabled = true
+    btn.textContent = 'Booking...'
+
+    try {
+      const response = await fetch(appsScriptUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({
+          date: selectedDate,
+          time: selectedTime,
+          email: $('booking-email').value.trim(),
+          phone: $('booking-phone').value.trim(),
+          linkedin: $('booking-linkedin').value.trim(),
+          message: $('booking-message').value.trim(),
+        }),
+        redirect: 'follow',
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        $('done-email-note').textContent = 'A calendar invite has been sent to ' + $('booking-email').value.trim() + '.'
+        $('done-slot-summary').textContent = slotSummary()
+        $('step-confirm').classList.add('hidden')
+        $('step-done').classList.remove('hidden')
+      } else if (data.error === 'slot_taken') {
+        resetAfterError(data.message)
+      } else {
+        resetAfterError(data.message || 'Something went wrong. Please try again or email daniel@danielgrahn.com.')
+      }
+    } catch (_) {
+      resetAfterError('Something went wrong. Please try again or email daniel@danielgrahn.com.')
+    }
+  }
+
+  function resetAfterError(message) {
+    const btn = $('confirm-booking-btn')
+    btn.disabled = false
+    btn.textContent = 'Confirm booking (9,900 SEK excl. VAT)'
+    $('step-confirm').classList.add('hidden')
+    $('step-calendar').classList.remove('hidden')
+    selectedDate = null
+    selectedTime = null
+    $('slot-picker').classList.add('hidden')
+    slotsCache = {}
+    fetchAvailability(currentYear, currentMonth)
+    $('error-text').textContent = message
+    $('error-message').classList.remove('hidden')
+  }
+
+  init()
+</script>
