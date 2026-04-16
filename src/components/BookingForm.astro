@@ -173,6 +173,9 @@ const { appsScriptUrl, lang, t } = Astro.props
     document.addEventListener('package-selected', (e) => {
       selectedPackage = e.detail
       updateCalendarNote()
+      if (!$('step-confirm').classList.contains('hidden')) {
+        updateConfirmStep()
+      }
     })
 
     renderCalendar()
@@ -425,23 +428,25 @@ const { appsScriptUrl, lang, t } = Astro.props
     goToConfirm()
   }
 
-  function goToConfirm() {
+  function updateConfirmStep() {
     const isBundled = selectedPackage === 'bundle'
-
     $('confirm-package').textContent = isBundled ? t.confirmPackageBundle : t.confirmPackageSingle
-    $('confirm-slot').textContent = slotSummary()
-    $('confirm-email').textContent = $('booking-email').value.trim()
-    $('confirm-phone').textContent = $('booking-phone').value.trim()
-    $('confirm-linkedin').textContent = $('booking-linkedin').value.trim()
-    $('confirm-message').textContent = $('booking-message').value.trim()
     $('confirm-booking-btn').textContent = isBundled ? t.confirmButtonBundle : t.confirmButtonSingle
-
     if (isBundled) {
       $('bundle-note').textContent = t.bundleNote
       $('bundle-note').classList.remove('hidden')
     } else {
       $('bundle-note').classList.add('hidden')
     }
+  }
+
+  function goToConfirm() {
+    $('confirm-slot').textContent = slotSummary()
+    $('confirm-email').textContent = $('booking-email').value.trim()
+    $('confirm-phone').textContent = $('booking-phone').value.trim()
+    $('confirm-linkedin').textContent = $('booking-linkedin').value.trim()
+    $('confirm-message').textContent = $('booking-message').value.trim()
+    updateConfirmStep()
 
     hideAllSteps()
     $('step-confirm').classList.remove('hidden')
