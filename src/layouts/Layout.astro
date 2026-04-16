@@ -154,6 +154,15 @@ let generatedCss: string = cssLines.join('\n')
       href={new URL('rss.xml', Astro.site)}
     />
     <title>{pageTitle}</title>
+    <!-- Google tag (gtag.js) -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-6F0DQLC9JL"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-6F0DQLC9JL');
+      gtag('config', 'AW-17718531693');
+    </script>
     <style is:global define:vars={baseCssVars}></style>
     <style is:inline set:html={generatedCss}></style>
     {themeMode === 'light-dark-auto' && <LightDarkAutoThemeLoader />}

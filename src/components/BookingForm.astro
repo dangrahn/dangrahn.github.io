@@ -486,6 +486,14 @@ const { appsScriptUrl, lang, t } = Astro.props
         $('done-slot-summary').textContent = slotSummary()
         $('step-confirm').classList.add('hidden')
         $('step-done').classList.remove('hidden')
+        if (typeof gtag === 'function') {
+          gtag('event', 'conversion', {
+            'send_to': 'AW-17718531693/y9lICJeetL0bEO2s7YBC',
+            'value': selectedPackage === 'bundle' ? t.priceBundle : t.priceSingle,
+            'currency': t.currency,
+            'transaction_id': data.bookingId || (Date.now() + '-' + Math.random().toString(36).slice(2, 8))
+          })
+        }
       } else if (data.error === 'slot_taken') {
         resetAfterError(data.message)
       } else {

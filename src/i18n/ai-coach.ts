@@ -200,6 +200,9 @@ export const translations = {
       errorMessage: 'Please describe what you want from the session.',
       errorGeneric:
         'Something went wrong. Please try again or email daniel@danielgrahn.com.',
+      priceSingle: 590,
+      priceBundle: 1390,
+      currency: 'EUR',
     },
   },
   sv: {
@@ -401,6 +404,9 @@ export const translations = {
       errorMessage: 'Vänligen beskriv vad du vill få ut av sessionen.',
       errorGeneric:
         'Något gick fel. Vänligen försök igen eller mejla daniel@danielgrahn.com.',
+      priceSingle: 5900,
+      priceBundle: 13900,
+      currency: 'SEK',
     },
   },
 } as const
