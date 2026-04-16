@@ -31,11 +31,12 @@ const { appsScriptUrl, lang, t } = Astro.props
       <div id="slot-picker" class="hidden mb-5">
         <p id="slot-date-label" class="text-foreground/70 text-sm mb-3"></p>
         <div class="flex gap-3">
-          <button id="slot-morning" type="button" class="flex-1 px-4 py-2.5 rounded border text-sm font-medium transition-colors">09:00–12:00</button>
-          <button id="slot-afternoon" type="button" class="flex-1 px-4 py-2.5 rounded border text-sm font-medium transition-colors">13:00–16:00</button>
+          <button id="slot-morning" type="button" class="flex-1 px-4 py-2.5 rounded border text-sm font-medium transition-colors">09:00–11:00</button>
+          <button id="slot-afternoon" type="button" class="flex-1 px-4 py-2.5 rounded border text-sm font-medium transition-colors">13:00–15:00</button>
         </div>
       </div>
 
+      <p id="package-calendar-note" class="text-accent text-sm text-center mb-2"></p>
       <p class="text-foreground/30 text-sm text-center">{t.allTimesNote}</p>
 
       <div id="loading-indicator" class="text-foreground/40 text-sm text-center py-4 hidden flex items-center justify-center gap-2">
@@ -73,11 +74,34 @@ const { appsScriptUrl, lang, t } = Astro.props
       <button id="back-to-calendar" type="button" class="w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors">{t.changeSlot}</button>
     </div>
 
-    <!-- Step 3: Confirmation Prompt -->
+    <!-- Step 3: Package Selection -->
+    <div id="step-package" class="hidden">
+      <p id="package-slot-summary" class="text-foreground/90 text-sm font-medium mb-4"></p>
+      <p class="text-foreground/70 text-sm mb-4">{t.packageHeading}</p>
+      <div class="space-y-3 mb-4">
+        <button id="select-single" type="button" class="w-full text-left p-4 bg-accent/10 rounded-lg border border-accent/15 hover:bg-accent/20 hover:border-accent/30 transition-colors cursor-pointer">
+          <p class="text-sm font-medium text-foreground/90">{t.packageSingleLabel}</p>
+          <p class="text-xs text-foreground/60 mt-1">{t.packageSingleDescription}</p>
+        </button>
+        <button id="select-bundle" type="button" class="w-full text-left p-4 bg-accent/10 rounded-lg border border-accent/20 hover:bg-accent/20 hover:border-accent/30 transition-colors cursor-pointer relative">
+          <span class="absolute -top-2 right-3 px-2 py-0.5 bg-accent/20 text-foreground/80 text-xs font-medium rounded-full border border-accent/30">{t.packageBundleBadge}</span>
+          <p class="text-sm font-medium text-foreground/90">{t.packageBundleLabel}</p>
+          <p class="text-xs text-foreground/60 mt-1">{t.packageBundleDescription}</p>
+          <p class="text-xs text-accent font-medium mt-1">{t.packageBundleSavings}</p>
+        </button>
+      </div>
+      <button id="back-to-details-from-package" type="button" class="w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors">{t.backButton}</button>
+    </div>
+
+    <!-- Step 4: Confirmation Prompt -->
     <div id="step-confirm" class="hidden">
       <p class="text-foreground/70 text-sm mb-4">{t.confirmHeading}</p>
 
       <div class="space-y-2 mb-6 text-sm">
+        <div class="flex justify-between">
+          <span class="text-foreground/50">{t.confirmPackageLabel}</span>
+          <span id="confirm-package" class="text-foreground/90 font-medium"></span>
+        </div>
         <div class="flex justify-between">
           <span class="text-foreground/50">{t.confirmDateLabel}</span>
           <span id="confirm-slot" class="text-foreground/90 font-medium"></span>
@@ -100,8 +124,10 @@ const { appsScriptUrl, lang, t } = Astro.props
         </div>
       </div>
 
-      <button id="confirm-booking-btn" type="button" class="w-full px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium mb-3">{t.confirmButton}</button>
-      <button id="back-to-details" type="button" class="w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors">{t.backButton}</button>
+      <p id="bundle-note" class="text-foreground/50 text-xs mb-3 hidden"></p>
+      <button id="confirm-booking-btn" type="button" class="w-full px-6 py-2 bg-accent/15 text-foreground/90 rounded border border-accent/20 hover:bg-accent/25 hover:border-accent/30 transition-colors text-sm font-medium mb-2"></button>
+      <p class="text-foreground/40 text-xs text-center mb-3">{t.invoiceNote}</p>
+      <button id="back-to-package" type="button" class="w-full text-foreground/50 text-sm hover:text-foreground/70 transition-colors">{t.backToPackage}</button>
     </div>
 
     <!-- Step 4: Booking Confirmed -->
@@ -122,6 +148,7 @@ const { appsScriptUrl, lang, t } = Astro.props
   let slotsCache = {}
   let selectedDate = null
   let selectedTime = null
+  let selectedPackage = null
 
   const $ = (id) => document.getElementById(id)
 
@@ -134,14 +161,27 @@ const { appsScriptUrl, lang, t } = Astro.props
     $('next-month').addEventListener('click', () => navigateMonth(1))
     $('slot-morning').addEventListener('click', () => pickSlot('09:00'))
     $('slot-afternoon').addEventListener('click', () => pickSlot('13:00'))
-    $('continue-btn').addEventListener('click', goToConfirm)
+    $('continue-btn').addEventListener('click', goToPackageSelection)
     $('back-to-calendar').addEventListener('click', goToCalendar)
+    $('select-single').addEventListener('click', () => selectPackage('single'))
+    $('select-bundle').addEventListener('click', () => selectPackage('bundle'))
+    $('back-to-details-from-package').addEventListener('click', showDetails)
     $('confirm-booking-btn').addEventListener('click', submitBooking)
-    $('back-to-details').addEventListener('click', showDetails)
+    $('back-to-package').addEventListener('click', goToPackageSelection)
     $('retry-btn').addEventListener('click', () => fetchAvailability(currentYear, currentMonth))
+
+    document.addEventListener('package-selected', (e) => {
+      selectedPackage = e.detail
+      updateCalendarNote()
+    })
 
     renderCalendar()
     fetchAvailability(currentYear, currentMonth)
+
+    // Default to bundle selected
+    selectedPackage = 'bundle'
+    updateCalendarNote()
+    document.dispatchEvent(new CustomEvent('package-selected', { detail: 'bundle' }))
   }
 
   function monthKey(year, month) {
@@ -313,22 +353,32 @@ const { appsScriptUrl, lang, t } = Astro.props
     const date = new Date(selectedDate + 'T00:00:00')
     const dayName = DAY_NAMES[date.getDay()]
     const monthName = MONTH_NAMES[date.getMonth()]
-    const endTime = selectedTime === '09:00' ? '12:00' : '16:00'
+    const endTime = selectedTime === '09:00' ? '11:00' : '15:00'
     return dayName + ' ' + date.getDate() + ' ' + monthName + ', ' + selectedTime + '\u2013' + endTime
+  }
+
+  function updateCalendarNote() {
+    const note = $('package-calendar-note')
+    note.textContent = selectedPackage === 'bundle' ? t.bundleCalendarNote : t.singleCalendarNote
+  }
+
+  function hideAllSteps() {
+    $('step-calendar').classList.add('hidden')
+    $('step-details').classList.add('hidden')
+    $('step-package').classList.add('hidden')
+    $('step-confirm').classList.add('hidden')
   }
 
   function showDetails() {
     if (!selectedDate || !selectedTime) return
     $('selected-slot-summary').textContent = slotSummary()
-    $('step-calendar').classList.add('hidden')
-    $('step-confirm').classList.add('hidden')
+    hideAllSteps()
     $('step-details').classList.remove('hidden')
     $('validation-error').classList.add('hidden')
   }
 
   function goToCalendar() {
-    $('step-details').classList.add('hidden')
-    $('step-confirm').classList.add('hidden')
+    hideAllSteps()
     $('step-calendar').classList.remove('hidden')
   }
 
@@ -353,21 +403,47 @@ const { appsScriptUrl, lang, t } = Astro.props
     return null
   }
 
-  function goToConfirm() {
+  function goToPackageSelection() {
     const invalid = validateContactForm()
     if (invalid) {
       showValidationError(invalid.error)
       $(invalid.field).focus()
       return
     }
+    if (selectedPackage) {
+      goToConfirm()
+      return
+    }
+    $('package-slot-summary').textContent = slotSummary()
+    hideAllSteps()
+    $('step-package').classList.remove('hidden')
+  }
 
+  function selectPackage(type) {
+    selectedPackage = type
+    updateCalendarNote()
+    goToConfirm()
+  }
+
+  function goToConfirm() {
+    const isBundled = selectedPackage === 'bundle'
+
+    $('confirm-package').textContent = isBundled ? t.confirmPackageBundle : t.confirmPackageSingle
     $('confirm-slot').textContent = slotSummary()
     $('confirm-email').textContent = $('booking-email').value.trim()
     $('confirm-phone').textContent = $('booking-phone').value.trim()
     $('confirm-linkedin').textContent = $('booking-linkedin').value.trim()
     $('confirm-message').textContent = $('booking-message').value.trim()
+    $('confirm-booking-btn').textContent = isBundled ? t.confirmButtonBundle : t.confirmButtonSingle
 
-    $('step-details').classList.add('hidden')
+    if (isBundled) {
+      $('bundle-note').textContent = t.bundleNote
+      $('bundle-note').classList.remove('hidden')
+    } else {
+      $('bundle-note').classList.add('hidden')
+    }
+
+    hideAllSteps()
     $('step-confirm').classList.remove('hidden')
   }
 
@@ -389,6 +465,7 @@ const { appsScriptUrl, lang, t } = Astro.props
           date: selectedDate,
           time: selectedTime,
           lang,
+          package: selectedPackage,
           email: $('booking-email').value.trim(),
           phone: $('booking-phone').value.trim(),
           linkedin: $('booking-linkedin').value.trim(),
@@ -417,11 +494,11 @@ const { appsScriptUrl, lang, t } = Astro.props
   function resetAfterError(message) {
     const btn = $('confirm-booking-btn')
     btn.disabled = false
-    btn.textContent = t.confirmButton
-    $('step-confirm').classList.add('hidden')
+    hideAllSteps()
     $('step-calendar').classList.remove('hidden')
     selectedDate = null
     selectedTime = null
+    selectedPackage = null
     $('slot-picker').classList.add('hidden')
     slotsCache = {}
     fetchAvailability(currentYear, currentMonth)

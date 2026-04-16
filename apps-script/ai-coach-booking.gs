@@ -5,8 +5,8 @@
 const TIMEZONE = 'Europe/Stockholm'
 const BUSY_CALENDARS = ['dangrahn@gmail.com']
 const SLOTS = [
-  { time: '09:00', hours: 9, minutes: 0, duration: 3 },
-  { time: '13:00', hours: 13, minutes: 0, duration: 3 },
+  { time: '09:00', hours: 9, minutes: 0, duration: 2 },
+  { time: '13:00', hours: 13, minutes: 0, duration: 2 },
 ]
 const MIN_LEAD_DAYS = 5
 const MAX_WEEKS_AHEAD = 6
@@ -15,11 +15,13 @@ var BOOKING_TEXTS = {
   en: {
     eventTitle: 'AI Competence Development Session',
     inviteGreeting: "I'm glad you booked a competence development session and look forward to our meeting!",
-    invitePrep: 'Before our session you will receive a pre-interview questionnaire to fill in. This is the only preparation and it only takes 5 minutes.',
+    invitePrep: 'Before our session you will receive a preparation questionnaire to fill in. This is the only preparation and it only takes 5 minutes.',
     inviteClosing: 'Looking forward to our meeting and to helping you leverage AI in your daily work!',
     slotTaken: 'This slot was just booked. Please select another.',
     bookingConfirmed: 'Booking confirmed.',
     promptLang: '',
+    packageSingle: 'Single meeting',
+    packageBundle: '3-meeting program',
   },
   sv: {
     eventTitle: 'AI-kompetensutvecklingssession',
@@ -29,6 +31,8 @@ var BOOKING_TEXTS = {
     slotTaken: 'Den h\u00e4r tiden bokades just. V\u00e4nligen v\u00e4lj en annan.',
     bookingConfirmed: 'Bokning bekr\u00e4ftad.',
     promptLang: '',
+    packageSingle: 'Enstaka m\u00f6te',
+    packageBundle: '3-m\u00f6tespaket',
   },
 }
 
@@ -132,6 +136,10 @@ function createBooking(slotStart, slotEnd, body) {
       return jsonResponse({ error: 'slot_taken', message: texts.slotTaken })
     }
 
+    var pkg = body.package || 'single'
+    var packageLabel = pkg === 'bundle' ? texts.packageBundle : texts.packageSingle
+    var eventTitle = pkg === 'bundle' ? texts.eventTitle + ' [1/3]' : texts.eventTitle
+
     var description = [
       texts.inviteGreeting,
       '',
@@ -141,6 +149,7 @@ function createBooking(slotStart, slotEnd, body) {
       '',
       '---',
       '',
+      'Package: ' + packageLabel,
       'Client email: ' + body.email,
       'Client phone: ' + body.phone,
       'LinkedIn: ' + body.linkedin,
@@ -151,7 +160,7 @@ function createBooking(slotStart, slotEnd, body) {
       'Booked via danielgrahn.com on ' + formatDate(new Date()),
     ].join('\n')
 
-    var event = CalendarApp.getDefaultCalendar().createEvent(texts.eventTitle, slotStart, slotEnd, {
+    var event = CalendarApp.getDefaultCalendar().createEvent(eventTitle, slotStart, slotEnd, {
       description: description,
     })
     event.setVisibility(CalendarApp.Visibility.PRIVATE)
@@ -169,12 +178,16 @@ function createBooking(slotStart, slotEnd, body) {
 function notifyOwner(body, slotStart, slotEnd) {
   var dateStr = formatDate(slotStart)
   var timeStr = slotStart.getHours() + ':00\u2013' + slotEnd.getHours() + ':00'
+  var texts = getBookingTexts(body.lang)
+  var pkg = body.package || 'single'
+  var packageLabel = pkg === 'bundle' ? texts.packageBundle : texts.packageSingle
 
-  var subject = 'New AI Competence Development booking: ' + dateStr + ' ' + timeStr
+  var subject = 'New AI Competence Development booking (' + packageLabel + '): ' + dateStr + ' ' + timeStr
 
   var emailBody = [
     'New AI Competence Development session booked!',
     '',
+    'Package: ' + packageLabel,
     'Date: ' + dateStr,
     'Time: ' + timeStr,
     'Email: ' + body.email,

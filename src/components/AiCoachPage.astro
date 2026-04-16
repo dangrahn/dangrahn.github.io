@@ -51,26 +51,26 @@ const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbzpTiA0UIpMDHcMy3
         <div class="flex gap-4">
           <span class="text-foreground/30 text-sm font-medium shrink-0">01</span>
           <div>
-            <p class="text-sm font-medium text-foreground/90">{t.step1Title}</p>
-            <p class="text-sm text-foreground/60">{t.step1Description}</p>
+            <p class="text-sm font-medium text-foreground/90">{t.meeting1Title}</p>
+            <p class="text-sm text-foreground/60">{t.meeting1Description}</p>
           </div>
         </div>
         <div class="flex gap-4">
           <span class="text-foreground/30 text-sm font-medium shrink-0">02</span>
           <div>
-            <p class="text-sm font-medium text-foreground/90">{t.step2Title}</p>
-            <p class="text-sm text-foreground/60">{t.step2Description}</p>
-            <p class="text-sm text-foreground/60 mt-2">{t.step2bDescription}</p>
+            <p class="text-sm font-medium text-foreground/90">{t.meeting2Title}</p>
+            <p class="text-sm text-foreground/60">{t.meeting2Description}</p>
           </div>
         </div>
         <div class="flex gap-4">
           <span class="text-foreground/30 text-sm font-medium shrink-0">03</span>
           <div>
-            <p class="text-sm font-medium text-foreground/90">{t.step3Title}</p>
-            <p class="text-sm text-foreground/60">{t.step3Description}</p>
+            <p class="text-sm font-medium text-foreground/90">{t.meeting3Title}</p>
+            <p class="text-sm text-foreground/60">{t.meeting3Description}</p>
           </div>
         </div>
       </div>
+      <p class="text-sm text-foreground/50 mt-6">{t.meetingsNote}</p>
     </section>
 
     <!-- What you'll walk away with -->
@@ -102,9 +102,42 @@ const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbzpTiA0UIpMDHcMy3
     <!-- Pricing + Purchase -->
     <section class="mb-12">
       <h2 class="text-xs uppercase tracking-wider text-foreground/50 font-medium mb-6">{t.bookHeading}</h2>
-      <p class="text-sm text-foreground/80 mb-2">
-        <span class="font-medium text-foreground/90">{t.bookPrice}</span> {t.bookIncludes}
-      </p>
+      <p class="text-sm text-foreground/70 mb-6">{t.bookSubtitle}</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        <button type="button" data-package="single" class="package-card text-left p-5 bg-accent/7 rounded-lg border-2 border-accent/10 hover:border-accent/30 transition-colors cursor-pointer">
+          <p class="text-sm font-medium text-foreground/90 mb-1">{t.packageSingleTitle}</p>
+          <p class="text-lg font-medium text-foreground/90">{t.packageSinglePrice} <span class="text-xs text-foreground/50 font-normal">{t.packageSinglePriceNote}</span></p>
+          <p class="text-sm text-foreground/60 mt-3">{t.packageSingleDescription}</p>
+        </button>
+        <button type="button" data-package="bundle" class="package-card text-left p-5 bg-accent/7 rounded-lg border-2 border-accent/25 hover:border-accent/30 transition-colors cursor-pointer relative">
+          <span class="absolute -top-2.5 right-4 px-2 py-0.5 bg-accent/20 text-foreground/80 text-xs font-medium rounded-full border border-accent/30">{t.packageBundleBadge}</span>
+          <p class="text-sm font-medium text-foreground/90 mb-1">{t.packageBundleTitle}</p>
+          <p class="text-lg font-medium text-foreground/90">{t.packageBundlePrice} <span class="text-xs text-foreground/50 font-normal">{t.packageBundlePriceNote}</span></p>
+          <p class="text-xs text-accent font-medium mt-1">{t.packageBundleSavings}</p>
+          <p class="text-sm text-foreground/60 mt-3">{t.packageBundleDescription}</p>
+        </button>
+      </div>
+      <script>
+        function selectPagePackage(pkg) {
+          document.querySelectorAll('.package-card').forEach(c => {
+            c.classList.remove('border-accent/50', 'ring-1', 'ring-accent/30')
+            c.classList.add(c.dataset.package === 'bundle' ? 'border-accent/25' : 'border-accent/10')
+          })
+          const card = document.querySelector(`[data-package="${pkg}"]`)
+          if (card) {
+            card.classList.remove('border-accent/10', 'border-accent/25')
+            card.classList.add('border-accent/50', 'ring-1', 'ring-accent/30')
+          }
+          document.dispatchEvent(new CustomEvent('package-selected', { detail: pkg }))
+        }
+
+        document.querySelectorAll('.package-card').forEach(card => {
+          card.addEventListener('click', () => selectPagePackage(card.dataset.package))
+        })
+
+        // Default to bundle selected
+        selectPagePackage('bundle')
+      </script>
       <BookingForm appsScriptUrl={appsScriptUrl} lang={t.lang} t={t.booking} />
     </section>
 
