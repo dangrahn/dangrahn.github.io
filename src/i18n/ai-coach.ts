@@ -329,7 +329,7 @@ export const translations = {
       resultFallbackNextStep:
         'En kompetensutvecklingssession hjälper dig att omvandla dessa insikter till konkreta förändringar i ditt arbetsflöde.',
       resultBookButton: 'Boka din session',
-      restartButton: 'Gör bedömningen igen',
+      restartButton: 'Gör testet igen',
       retryButton: 'Försök igen',
       errorFallback: 'Något gick fel. Vänligen försök igen.',
     },
