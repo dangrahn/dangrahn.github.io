@@ -13,12 +13,9 @@ export const translations = {
     title: 'AI Competence Development',
     description:
       'Practical AI upskilling for professionals and teams. Identify your highest-yield AI use cases, get hands-on experience, and walk away with a concrete plan for integrating AI into your daily workflow. From 590 EUR per meeting.',
-    heading: 'AI Competence Development (online)',
+    heading: 'Go from curious about AI to actually using it — in your workflow, with your data',
     subtitle:
       'Practical upskilling that takes you from surface-level AI usage to real workflow integration — with hands-on experience and a concrete plan to keep building on.',
-    sectionHeading: 'AI Competence Development',
-    sectionDescription:
-      'Knowing where AI fits is the first step. The real value comes from building the competence to use it yourself — in your workflows, with your tools, on your data. This session gives you both the roadmap and the practical skills to get started.',
     howItWorksHeading: 'How it works',
     meeting1Title: 'Meeting 1: Introduction & your first AI use case',
     meeting1Description:
@@ -36,9 +33,7 @@ export const translations = {
       'Clarity on where AI fits in your specific workflow',
       'Hands-on experience with your highest-yield AI use case',
       'Repetitive work identified and matched with tailored AI solutions',
-      'Security and data privacy assessment for your context',
       'A concrete plan for practically incorporating AI into your daily workflow',
-      'A signed diploma certifying completed AI upskilling',
     ],
     resultsHeading: 'Results from previous sessions',
     resultCaseTitle: 'Environmental Consultant — Water Ecology',
@@ -49,7 +44,7 @@ export const translations = {
     ],
     resultCaseHighlight: '15–25 hours/week in potential time savings',
     bookHeading: 'Choose your package',
-    bookSubtitle: 'Book one or multiple meetings.',
+    bookSubtitle: 'Start with one session or commit to the full program.',
     packageSingleTitle: 'Single meeting',
     packageSinglePrice: '590 EUR',
     packageSinglePriceNote: 'excl. VAT',
@@ -69,6 +64,49 @@ export const translations = {
       "My background in software engineering, AI development, product ownership, UX, and stakeholder management means I don't just understand the technology — I understand how it needs to fit into real teams, real processes, and real business constraints. That combination is what makes this competence development practical, not theoretical.",
     whyParagraph3:
       "As an independent contractor, you work directly with me — not a rotating cast from a large consultancy. That means a more personal experience, continuity across sessions, and someone who genuinely invests in your progress.",
+    heroTagline: 'For knowledge workers ready to level up',
+    heroStat: '15–25 hours/week',
+    heroStatLabel: 'in potential time savings from previous sessions',
+    proofMetric: '50–70%',
+    proofMetricLabel: 'reduction in report drafting time',
+    proofCredentials: [
+      '10+ years in software & AI',
+      'Product ownership & UX',
+      'Independent consultant',
+    ],
+    midCtaHeading: 'Ready to start?',
+    midCtaDescription: 'Choose a package and book your first session',
+    midCtaButton: 'See packages & book',
+    aboutBio:
+      "With 10+ years in software engineering, AI development, product ownership, and UX, I don't just understand the technology — I understand how it fits into real teams and real business constraints. As an independent consultant, you work directly with me: personal, practical, and invested in your progress.",
+    faqHeading: 'Common questions',
+    faqItems: [
+      {
+        question: 'Is this relevant for my industry?',
+        answer:
+          'Yes. The approach is workflow-first, not industry-specific. We look at how you actually work — your tools, your processes, your bottlenecks — and find where AI fits. Previous participants have come from consulting, finance, marketing, engineering, and public sector.',
+      },
+      {
+        question: 'Do I need technical skills?',
+        answer:
+          'No. The sessions are designed for professionals who want to use AI effectively, not build it. If you can use a browser and write an email, you have the skills you need.',
+      },
+      {
+        question: 'I already use ChatGPT daily — is this still useful?',
+        answer:
+          'Yes. Most people use a fraction of what\'s possible. We go beyond chat — identifying automation opportunities, connecting AI to your actual data and tools, and building workflows that save hours, not minutes.',
+      },
+      {
+        question: 'What happens between and after the sessions?',
+        answer:
+          'After each session you receive a written follow-up report with everything we covered, your personalized action items, and recommended next steps. Between sessions, you implement what we discussed — and we pick up where you left off.',
+      },
+      {
+        question: 'Can I expense this as professional development?',
+        answer:
+          'Yes. You receive a proper invoice suitable for employer reimbursement or corporate expensing. Many participants have their employer cover the cost.',
+      },
+    ],
     assessment: {
       heading: 'Find out what AI can do for you',
       startDescription: 'A personalized analysis of how AI can elevate your workflow.',
@@ -217,12 +255,9 @@ export const translations = {
     title: 'AI-kompetensutveckling',
     description:
       'Praktisk AI-kompetensutveckling för yrkesverksamma och team. Identifiera dina mest värdefulla AI-användningsfall, få praktisk erfarenhet och ta med dig en konkret plan för att integrera AI i ditt dagliga arbete. Från 5 900 SEK per möte.',
-    heading: 'AI-kompetensutveckling (online)',
+    heading: 'Gå från nyfiken på AI till att faktiskt använda det — i ditt arbetsflöde, med din data',
     subtitle:
       'Praktisk kompetensutveckling som tar dig från att testa AI till att verkligen integrera det i ditt arbetsflöde — med en konkret plan du kan bygga vidare på.',
-    sectionHeading: 'AI-kompetensutveckling',
-    sectionDescription:
-      'Att veta var AI passar in är första steget. Det verkliga värdet kommer av att bygga kompetensen att använda det själv — i dina arbetsflöden, med dina verktyg, med din data. Den här sessionen ger dig både översikten och de praktiska färdigheterna för att komma igång.',
     howItWorksHeading: 'Så fungerar det',
     meeting1Title: 'Möte 1: Introduktion & ditt första AI-användningsfall',
     meeting1Description:
@@ -240,9 +275,7 @@ export const translations = {
       'Klarhet i var AI passar i just ditt arbetsflöde',
       'Praktisk erfarenhet av ditt mest värdefulla AI-användningsfall',
       'Kartläggning av repetitivt arbete, matchat med förslag på skräddarsydda AI-lösningar',
-      'Säkerhets- och dataskyddsbedömning för din kontext',
       'En konkret plan för att praktiskt integrera AI i ditt dagliga arbete',
-      'Ett signerat diplom som intygar genomförd AI-kompetensutveckling',
     ],
     resultsHeading: 'Resultat från tidigare sessioner',
     resultCaseTitle: 'Miljökonsult — Vattenekologi',
@@ -253,7 +286,7 @@ export const translations = {
     ],
     resultCaseHighlight: '15–25 timmar/vecka i potentiella tidsbesparingar',
     bookHeading: 'Välj ditt paket',
-    bookSubtitle: 'Boka ett eller flera möten.',
+    bookSubtitle: 'Börja med ett möte eller satsa på hela programmet.',
     packageSingleTitle: 'Ett möte',
     packageSinglePrice: '5 900 SEK',
     packageSinglePriceNote: 'exkl. moms',
@@ -273,6 +306,49 @@ export const translations = {
       'Min bakgrund inom mjukvaruutveckling, AI-utveckling, produktägarskap, användbarhet och intressenthantering innebär att jag inte bara förstår tekniken — jag förstår hur den behöver passa in i verkliga team, verkliga processer och verkliga affärsbegränsningar. Den kombinationen är det som gör denna kompetensutveckling praktisk, inte teoretisk.',
     whyParagraph3:
       'Som egenföretagare arbetar du direkt med mig. Det innebär en mer personlig upplevelse och någon som verkligen investerar i dina framsteg.',
+    heroTagline: 'För yrkesverksamma som vill ta nästa steg',
+    heroStat: '15–25 timmar/vecka',
+    heroStatLabel: 'i potentiella tidsbesparingar baserat på tidigare sessioner',
+    proofMetric: '50–70 %',
+    proofMetricLabel: 'minskning av rapportskrivningstid',
+    proofCredentials: [
+      '10+ år inom mjukvara & AI',
+      'Produktägarskap & UX',
+      'Egenföretagare',
+    ],
+    midCtaHeading: 'Redo att börja?',
+    midCtaDescription: 'Välj ett paket och boka din första session',
+    midCtaButton: 'Se paket & boka',
+    aboutBio:
+      'Med 10+ års erfarenhet inom mjukvaruutveckling, AI-utveckling, produktägarskap och UX förstår jag inte bara tekniken — jag förstår hur den behöver passa in i verkliga team och verkliga affärsbegränsningar. Som egenföretagare arbetar du direkt med mig: personligt, praktiskt och med genuint engagemang i dina framsteg.',
+    faqHeading: 'Vanliga frågor',
+    faqItems: [
+      {
+        question: 'Är det här relevant för min bransch?',
+        answer:
+          'Ja. Upplägget utgår från ditt arbetsflöde, inte din bransch. Vi tittar på hur du faktiskt arbetar — dina verktyg, processer och flaskhalsar — och hittar var AI passar in. Tidigare deltagare har kommit från konsulting, finans, marknadsföring, teknik och offentlig sektor.',
+      },
+      {
+        question: 'Behöver jag tekniska kunskaper?',
+        answer:
+          'Nej. Sessionerna är gjorda för yrkesverksamma som vill använda AI effektivt, inte bygga det. Kan du använda en webbläsare och skriva ett mejl har du de färdigheter som behövs.',
+      },
+      {
+        question: 'Jag använder redan ChatGPT dagligen — är det här fortfarande relevant?',
+        answer:
+          'Ja. De flesta använder en bråkdel av vad som är möjligt. Vi går bortom chatt — identifierar automationsmöjligheter, kopplar AI till din faktiska data och dina verktyg, och bygger arbetsflöden som sparar timmar, inte minuter.',
+      },
+      {
+        question: 'Vad händer mellan och efter sessionerna?',
+        answer:
+          'Efter varje session får du en skriftlig uppföljningsrapport med allt vi gick igenom, dina personliga åtgärdspunkter och rekommenderade nästa steg. Mellan sessionerna implementerar du det vi diskuterat — och vi fortsätter där vi slutade.',
+      },
+      {
+        question: 'Kan jag få detta som kompetensutveckling via arbetsgivaren?',
+        answer:
+          'Ja. Du får en korrekt faktura som passar för arbetsgivarens kostnadsredovisning. Många deltagare har sin arbetsgivare som betalar.',
+      },
+    ],
     assessment: {
       heading: 'Ta reda på vad AI kan göra för dig',
       startDescription: 'En personlig analys av hur AI kan effektivisera ditt arbete.',
