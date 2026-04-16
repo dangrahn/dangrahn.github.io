@@ -37,14 +37,6 @@ const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbzpTiA0UIpMDHcMy3
         {t.subtitle}
       </p>
 
-      <!-- Stat callout -->
-      <div class="flex items-start gap-6 mb-10 hero-stat">
-        <div class="border-l-2 border-accent/50 pl-5 py-1">
-          <p class="text-xl sm:text-2xl font-medium text-accent tracking-tight">{t.heroStat}</p>
-          <p class="text-xs text-foreground/40 mt-1 leading-relaxed">{t.heroStatLabel}</p>
-        </div>
-      </div>
-
       <div class="section-divider mt-14"></div>
     </header>
 
@@ -52,44 +44,6 @@ const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbzpTiA0UIpMDHcMy3
     <section class="pb-16">
       <div class="assessment-glow">
         <AiAssessmentWidget appsScriptUrl={appsScriptUrl} lang={t.lang} t={t.assessment} />
-      </div>
-    </section>
-
-    <div class="section-divider"></div>
-
-    <!-- ==================== SOCIAL PROOF ==================== -->
-    <section class="py-16">
-      <h2 class="section-label mb-10">{t.resultsHeading}</h2>
-
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10">
-        <!-- Featured metric -->
-        <div class="sm:col-span-1 flex flex-col justify-center p-6 border border-accent/20 rounded-lg bg-accent/5 metric-card">
-          <p class="text-3xl sm:text-4xl font-medium text-accent tracking-tight">{t.proofMetric}</p>
-          <p class="text-xs text-foreground/45 mt-2 leading-relaxed">{t.proofMetricLabel}</p>
-        </div>
-
-        <!-- Case study -->
-        <div class="sm:col-span-2 p-6 bg-foreground/[0.03] rounded-lg border border-foreground/8">
-          <p class="text-sm font-medium text-foreground/80 mb-4">{t.resultCaseTitle}</p>
-          <ul class="space-y-2.5 text-sm mb-5">
-            {t.resultCaseItems.map((item) => (
-              <li class="text-foreground/65 flex gap-2.5 items-start">
-                <span class="text-accent/70 shrink-0 mt-0.5 text-xs">+</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-          <p class="text-sm text-accent/90 font-medium">{t.resultCaseHighlight}</p>
-        </div>
-      </div>
-
-      <!-- Trust chips -->
-      <div class="flex flex-wrap gap-2.5 justify-center">
-        {t.proofCredentials.map((cred) => (
-          <span class="text-xs text-foreground/45 px-3.5 py-1.5 border border-foreground/10 rounded-full tracking-wide">
-            {cred}
-          </span>
-        ))}
       </div>
     </section>
 
@@ -136,7 +90,7 @@ const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbzpTiA0UIpMDHcMy3
         </div>
       </div>
 
-      <p class="text-xs text-foreground/35 mt-8 pl-[3.25rem] sm:pl-[3.75rem] leading-relaxed">{t.meetingsNote}</p>
+      <p class="text-sm text-foreground/35 mt-8 pl-[3.25rem] sm:pl-[3.75rem] leading-relaxed">{t.meetingsNote}</p>
     </section>
 
     <div class="section-divider"></div>
@@ -151,6 +105,44 @@ const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbzpTiA0UIpMDHcMy3
             <span class="text-accent/60 shrink-0 mt-0.5 text-sm">&#10003;</span>
             <p class="text-sm text-foreground/70 leading-relaxed">{item}</p>
           </div>
+        ))}
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ==================== SOCIAL PROOF ==================== -->
+    <section class="py-16">
+      <h2 class="section-label mb-10">{t.resultsHeading}</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10">
+        <!-- Featured metric -->
+        <div class="sm:col-span-1 flex flex-col justify-center p-6 border border-accent/20 rounded-lg bg-accent/5 metric-card">
+          <p class="text-3xl sm:text-4xl font-medium text-accent tracking-tight">{t.proofMetric}</p>
+          <p class="text-sm text-foreground/45 mt-2 leading-relaxed">{t.proofMetricLabel}</p>
+        </div>
+
+        <!-- Case study -->
+        <div class="sm:col-span-2 p-6 bg-foreground/[0.03] rounded-lg border border-foreground/8">
+          <p class="text-sm font-medium text-foreground/80 mb-4">{t.resultCaseTitle}</p>
+          <ul class="space-y-2.5 text-sm mb-5">
+            {t.resultCaseItems.map((item) => (
+              <li class="text-foreground/65 flex gap-2.5 items-start">
+                <span class="text-accent/70 shrink-0 mt-0.5 text-xs">+</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <p class="text-sm text-accent/90 font-medium">{t.resultCaseHighlight}</p>
+        </div>
+      </div>
+
+      <!-- Trust chips -->
+      <div class="flex flex-wrap gap-2.5 justify-center">
+        {t.proofCredentials.map((cred) => (
+          <span class="text-sm text-foreground/45 px-3.5 py-1.5 border border-foreground/10 rounded-full tracking-wide">
+            {cred}
+          </span>
         ))}
       </div>
     </section>
@@ -219,15 +211,15 @@ const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbzpTiA0UIpMDHcMy3
           <p class="text-sm font-medium text-foreground/85 mb-1">{t.packageSingleTitle}</p>
           <p class="text-xl font-medium text-foreground/90">{t.packageSinglePrice} <span class="text-xs text-foreground/40 font-normal">{t.packageSinglePriceNote}</span></p>
           <p class="text-sm text-foreground/55 mt-3 leading-relaxed">{t.packageSingleDescription}</p>
-          <p class="text-xs text-foreground/40 mt-3">{t.packageSingleIncludes}</p>
+          <p class="text-sm text-foreground/40 mt-3">{t.packageSingleIncludes}</p>
         </button>
         <button type="button" data-package="bundle" class="package-card text-left p-6 bg-accent/10 rounded-lg border-2 border-accent/25 hover:border-accent/40 transition-all duration-300 cursor-pointer relative">
           <span class="absolute -top-2.5 right-4 px-2.5 py-0.5 bg-accent/20 text-foreground/80 text-xs font-medium rounded-full border border-accent/30">{t.packageBundleBadge}</span>
           <p class="text-sm font-medium text-foreground/85 mb-1">{t.packageBundleTitle}</p>
           <p class="text-xl font-medium text-foreground/90">{t.packageBundlePrice} <span class="text-xs text-foreground/40 font-normal">{t.packageBundlePriceNote}</span></p>
-          <p class="text-xs text-accent/80 font-medium mt-1">{t.packageBundleSavings}</p>
+          <p class="text-sm text-accent/80 font-medium mt-1">{t.packageBundleSavings}</p>
           <p class="text-sm text-foreground/55 mt-3 leading-relaxed">{t.packageBundleDescription}</p>
-          <p class="text-xs text-foreground/40 mt-3">{t.packageBundleIncludes}</p>
+          <p class="text-sm text-foreground/40 mt-3">{t.packageBundleIncludes}</p>
         </button>
       </div>
 
@@ -268,7 +260,7 @@ const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbzpTiA0UIpMDHcMy3
 
   /* Section labels — consistent heading treatment */
   .section-label {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.18em;
     color: color-mix(in srgb, var(--theme-foreground) 45%, transparent);
