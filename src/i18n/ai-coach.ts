@@ -255,7 +255,7 @@ export const translations = {
     title: 'AI-kompetensutveckling',
     description:
       'Praktisk AI-kompetensutveckling för yrkesverksamma. Identifiera var AI gör störst skillnad i ditt arbete, få praktisk erfarenhet och ta med dig en konkret plan för att integrera AI i ditt dagliga arbetsflöde. Från 5 900 SEK per möte.',
-    heading: 'Gå från nyfiken på AI till att faktiskt använda det — i ditt arbetsflöde, med din data',
+    heading: 'Gå från att vara nyfiken på AI till att faktiskt använda det — i ditt arbetsflöde, med din data.',
     subtitle:
       'Praktisk kompetensutveckling som tar dig från att testa AI till att verkligen integrera det i ditt arbetsflöde — med en konkret plan du kan bygga vidare på.',
     howItWorksHeading: 'Så fungerar det',
