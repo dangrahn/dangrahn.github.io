@@ -104,6 +104,12 @@ export const translations = {
           'Yes. Most people use a fraction of what\'s possible. We go beyond chat — identifying automation opportunities, connecting AI to your actual data and tools, and building workflows that save hours, not minutes.',
       },
       {
+        question:
+          'My company restricts or blocks ChatGPT — can I still benefit?',
+        answer:
+          'Absolutely. ChatGPT is just one option. We work with whatever your organization allows — Microsoft Copilot, Claude Cowork, on-premise solutions, or tools that never send data outside your network. Part of the coaching is finding the right AI setup for your specific security and compliance requirements.',
+      },
+      {
         question: 'What happens between and after the sessions?',
         answer:
           'After each session you receive a written follow-up report with everything we covered, your personalized action items, and recommended next steps. Between sessions, you implement what we discussed — and we pick up where you left off.',
@@ -358,6 +364,12 @@ export const translations = {
         question: 'Jag använder redan ChatGPT dagligen — är det här fortfarande relevant?',
         answer:
           'Ja. De flesta använder en bråkdel av vad som är möjligt. Vi går bortom chatt — identifierar automationsmöjligheter, kopplar AI till din faktiska data och dina verktyg, och bygger arbetsflöden som sparar timmar, inte minuter.',
+      },
+      {
+        question:
+          'Mitt företag begränsar eller blockerar ChatGPT — kan jag ändå ha nytta av detta?',
+        answer:
+          'Absolut. ChatGPT är bara ett av många alternativ. Vi arbetar med det din organisation tillåter — Microsoft Copilot, Claude Cowork, lokala lösningar eller verktyg som aldrig skickar data utanför ert nätverk. En del av coachingen är att hitta rätt AI-upplägg utifrån just era säkerhets- och compliancekrav.',
       },
       {
         question: 'Vad händer mellan och efter sessionerna?',
