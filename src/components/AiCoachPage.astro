@@ -206,6 +206,17 @@ const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbzpTiA0UIpMDHcMy3
         <p class="text-sm text-foreground/50">{t.bookSubtitle}</p>
       </div>
 
+      <button type="button" data-package="intro" class="package-card w-full text-left p-5 bg-foreground/[0.03] rounded-lg border-2 border-dashed border-foreground/15 hover:border-foreground/25 transition-all duration-300 cursor-pointer mb-4 relative">
+        <span class="absolute -top-2.5 right-4 px-2.5 py-0.5 bg-foreground/10 text-foreground/70 text-xs font-medium rounded-full border border-foreground/15">{t.packageIntroBadge}</span>
+        <div class="flex flex-col sm:flex-row sm:items-center sm:gap-6">
+          <div class="shrink-0">
+            <p class="text-sm font-medium text-foreground/85 mb-1">{t.packageIntroTitle}</p>
+            <p class="text-lg font-medium text-foreground/90">{t.packageIntroPrice} <span class="text-xs text-foreground/40 font-normal">{t.packageIntroPriceNote}</span></p>
+          </div>
+          <p class="text-sm text-foreground/55 mt-2 sm:mt-0 leading-relaxed">{t.packageIntroDescription}</p>
+        </div>
+      </button>
+
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
         <button type="button" data-package="single" class="package-card text-left p-6 bg-accent/5 rounded-lg border-2 border-accent/10 hover:border-accent/30 transition-all duration-300 cursor-pointer">
           <p class="text-sm font-medium text-foreground/85 mb-1">{t.packageSingleTitle}</p>
@@ -213,7 +224,7 @@ const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbzpTiA0UIpMDHcMy3
           <p class="text-sm text-foreground/55 mt-3 leading-relaxed">{t.packageSingleDescription}</p>
           <p class="text-sm text-foreground/40 mt-3">{t.packageSingleIncludes}</p>
         </button>
-        <button type="button" data-package="bundle" class="package-card text-left p-6 bg-accent/10 rounded-lg border-2 border-accent/25 hover:border-accent/40 transition-all duration-300 cursor-pointer relative">
+        <button type="button" data-package="bundle" class="package-card text-left p-6 bg-accent/5 rounded-lg border-2 border-accent/10 hover:border-accent/30 transition-all duration-300 cursor-pointer relative">
           <span class="absolute -top-2.5 right-4 px-2.5 py-0.5 bg-accent/20 text-foreground/80 text-xs font-medium rounded-full border border-accent/30">{t.packageBundleBadge}</span>
           <p class="text-sm font-medium text-foreground/85 mb-1">{t.packageBundleTitle}</p>
           <p class="text-xl font-medium text-foreground/90">{t.packageBundlePrice} <span class="text-xs text-foreground/40 font-normal">{t.packageBundlePriceNote}</span></p>
@@ -224,15 +235,28 @@ const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbzpTiA0UIpMDHcMy3
       </div>
 
       <script>
+        const defaultBorders = {
+          intro: 'border-foreground/15',
+          single: 'border-accent/10',
+          bundle: 'border-accent/10',
+        }
+        const defaultBgs = {
+          intro: 'bg-foreground/[0.03]',
+          single: 'bg-accent/5',
+          bundle: 'bg-accent/5',
+        }
+
         function selectPagePackage(pkg) {
           document.querySelectorAll('.package-card').forEach(c => {
-            c.classList.remove('border-accent/50', 'ring-1', 'ring-accent/30')
-            c.classList.add(c.dataset.package === 'bundle' ? 'border-accent/25' : 'border-accent/10')
+            c.classList.remove('border-accent/50', 'ring-1', 'ring-accent/30', 'bg-accent/10')
+            c.classList.add(defaultBorders[c.dataset.package] || 'border-accent/10')
+            c.classList.add(defaultBgs[c.dataset.package] || 'bg-accent/5')
           })
           const card = document.querySelector(`[data-package="${pkg}"]`)
           if (card) {
-            card.classList.remove('border-accent/10', 'border-accent/25')
-            card.classList.add('border-accent/50', 'ring-1', 'ring-accent/30')
+            card.classList.remove(defaultBorders[pkg] || 'border-accent/10')
+            card.classList.remove(defaultBgs[pkg] || 'bg-accent/5')
+            card.classList.add('border-accent/50', 'ring-1', 'ring-accent/30', 'bg-accent/10')
           }
           document.dispatchEvent(new CustomEvent('package-selected', { detail: pkg }))
         }
